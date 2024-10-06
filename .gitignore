@@ -1,0 +1,7 @@
+__pycache__/
+.vscode/
+logmaker.py
+runPythia.py
+*.so
+*.d
+*.pcm
