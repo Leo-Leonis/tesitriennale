@@ -5,3 +5,5 @@ runPythia.py
 *.so
 *.d
 *.pcm
+test.cpp
+test
