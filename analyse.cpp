@@ -6,6 +6,7 @@
 #include "TGraphAsymmErrors.h"
 #include "TLegend.h"
 
+// NON COMPILARE QUESTO PROGRAMMA SENZA AVER PRIMA ACCESO MOBA
 
 int analyse() {
 
