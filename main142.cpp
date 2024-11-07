@@ -1,18 +1,7 @@
-// main142.cc is a part of the PYTHIA event generator.
-// Copyright (C) 2024 Torbjorn Sjostrand.
-// PYTHIA is licenced under the GNU GPL v2 or later, see COPYING for details.
-// Please respect the MCnet Guidelines, see GUIDELINES for details.
-
-// Authors: Dag Gillberg <dag.gillberg@cern.ch>
-
-// Keywords: root; jets; event display
-
-// This is a program to use ROOT to visualize different jet algoritms.
-// The produced figure is used in the article "50 years of Quantum
-// Chromodynamics" in celebration of the 50th anniversary of QCD (EPJC).
-
 #include "Pythia8/Pythia.h"
+// #include "Pythia8Plugins/ProgressLog.h"
 #include "TCanvas.h"
+#include "TDirectory.h"
 #include "TFile.h"
 #include "TH1D.h"
 #include "TLatex.h"  //
@@ -34,15 +23,15 @@ std::string formatHMSTime(double seconds) {
   int m = (static_cast<int>(seconds) % 3600) / 60; // min rimasti
   int s = static_cast<int>(seconds) % 60;          // secondi rimasti
   std::ostringstream timeStream; // elemento ostringstream da costruire
-  timeStream << std::setw(2) << std::setfill('0') << h << ":" << std::setw(2)
-             << std::setfill('0') << m << ":" << std::setw(2)
-             << std::setfill('0') << s;
+  timeStream << std::setw(2) << std::setfill('0') << h << "h" << std::setw(2)
+             << std::setfill('0') << m << "m" << std::setw(2)
+             << std::setfill('0') << s << "s";
   return timeStream.str();
 }
 
 // mostra una barra di progressione
 void showProgressBar(int progress, int total, double elapsed_time) {
-  int barWidth = 50; // Larghezza della barra di progresso
+  int barWidth = 40; // Larghezza in pixel della barra di progresso
   float progressPercentage = (float)progress / total;
 
   std::cout << "\033[33m[";
@@ -59,36 +48,24 @@ void showProgressBar(int progress, int total, double elapsed_time) {
 
   std::cout
       << "] " << int(progressPercentage * 100.0) << "% (" << progress
-      << " events, time: " << formatHMSTime(estimated_total_time)
-      << ", remaining: "
-      << formatHMSTime(estimated_total_time - elapsed_time)
+      << " ev., required: " << formatHMSTime(estimated_total_time)
+      << ", remaining: " << formatHMSTime(estimated_total_time - elapsed_time)
+      << ")"
       << "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"
          "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"
          "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"
-         "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\033[0m";
+         "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"
+         "\033[0m";
   std::cout.flush(); // Assicura che la barra venga aggiornata immediatamente
 }
-
-/* int getReactionCode(std::vector<int> *daughterlist) {
-
-  int size = daughterlist->size();
-  int code;
-  if (size == 2 || size == 3) {
-    for (int ip = 0; ip < size; ip++) {
-    }
-  } else {
-    std::cout << "nonsense!" << '\n';
-    return 0;
-  }
-} */
 
 int main142(const int nevs = 1e4, const bool Dprod = 1) {
 
   gStyle->SetOptStat(2200);
   // gStyle->SetOptFit(1111);
 
-  Int_t n_bins_pp = 51; // il numero dei bin per istogrammi di protoni
-  Int_t n_bins_DD = 30; // il numero dei bin per deuteroni
+  Int_t n_bins_pp = 68; // il numero dei bin per istogrammi di protoni
+  Int_t n_bins_DD = 47; // il numero dei bin per deuteroni
 
   // il numero dei bin deve essere calcolato contando il numero dei limiti dei
   // bin sottraendo 1, quindi se ci sono 40 bin allora quello che si deve fare è
@@ -96,15 +73,18 @@ int main142(const int nevs = 1e4, const bool Dprod = 1) {
 
   // binnaggio pazzo del cern per istogrammi di protoni
   Double_t bin_edges_pp[] = {
-      0.3,  0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9,
-      0.95, 1.0,  1.1, 1.2,  1.3, 1.4,  1.5, 1.6,  1.7, 1.8,  1.9, 2,    2.2,
-      2.4,  2.6,  2.8, 3,    3.2, 3.4,  3.6, 3.8,  4,   4.5,  5,   5.5,  6,
-      6.5,  7,    8,   9,    10,  11,   12,  13,   14,  15,   16,  18,   20};
+      0,     0.01, 0.02,  0.03, 0.04,  0.05, 0.06, 0.07, 0.09, 0.11, 0.13, 0.15,
+      0.175, 0.20, 0.225, 0.25, 0.275, 0.3,  0.35, 0.4,  0.45, 0.5,  0.55, 0.6,
+      0.65,  0.7,  0.75,  0.8,  0.85,  0.9,  0.95, 1.0,  1.1,  1.2,  1.3,  1.4,
+      1.5,   1.6,  1.7,   1.8,  1.9,   2,    2.2,  2.4,  2.6,  2.8,  3,    3.2,
+      3.4,   3.6,  3.8,   4,    4.5,   5,    5.5,  6,    6.5,  7,    8,    9,
+      10,    11,   12,    13,   14,    15,   16,   18,   20};
   // binnaggio pazzo del cern per istogrammi di deuteroni
-  Double_t bin_edges_DD[] = {0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65,
-                             0.7, 0.8,  0.9, 1.0,  1.1, 1.2,  1.4, 1.6,
-                             1.8, 2,    2.2, 2.6,  3,   3.4,  3.8, 4,
-                             4.5, 5,    5.5, 6,    6.5, 7,    8};
+  Double_t bin_edges_DD[] = {
+      0,     0.01, 0.02,  0.03, 0.04,  0.05, 0.06, 0.07, 0.09, 0.11, 0.13, 0.15,
+      0.175, 0.20, 0.225, 0.25, 0.275, 0.3,  0.35, 0.4,  0.45, 0.5,  0.55, 0.6,
+      0.65,  0.7,  0.8,   0.9,  1.0,   1.1,  1.2,  1.4,  1.6,  1.8,  2,    2.2,
+      2.6,   3,    3.4,   3.8,  4,     4.5,  5,    5.5,  6,    6.5,  7,    8};
 
   TH1D *h_pt_proton =
       new TH1D("h_pt_proton",
@@ -175,18 +155,18 @@ int main142(const int nevs = 1e4, const bool Dprod = 1) {
       "[(GeV/c)^{-1}];",
       n_bins_DD, bin_edges_DD);
   //// distribuzione di D prodotti da p+n a pi0+pi0+D
-  TH1D *h_pt_deuteron_out_pi0_pi0_D =
-      new TH1D("h_pt_deuteron_out_pi0_pi0_D",
-               "D #it{p}_{t} distribution from p+n to #pi^{0}+D;Transverse "
-               "momentum #it{p}_{t} [GeV/c];Occurance [(GeV/c)^{-1}];",
-               n_bins_DD, bin_edges_DD);
+  TH1D *h_pt_deuteron_out_pi0_pi0_D = new TH1D(
+      "h_pt_deuteron_out_pi0_pi0_D",
+      "D #it{p}_{t} distribution from p+n to #pi^{0}+#pi^{0}+D;Transverse "
+      "momentum #it{p}_{t} [GeV/c];Occurance [(GeV/c)^{-1}];",
+      n_bins_DD, bin_edges_DD);
 
   std::vector<TH1D *> h_vector_p_n;
   h_vector_p_n.push_back(h_pt_deuteron_in_p_n);
   h_vector_p_n.push_back(h_pt_deuteron_out_g_D);
   h_vector_p_n.push_back(h_pt_deuteron_out_pi0_D);
-  h_vector_p_n.push_back(h_pt_deuteron_out_pi0_pi0_D);
   h_vector_p_n.push_back(h_pt_deuteron_out_piP_piM_D);
+  h_vector_p_n.push_back(h_pt_deuteron_out_pi0_pi0_D);
 
   // distribuzione di D prodotti da p+p________________________________________
   TH1D *h_pt_deuteron_in_p_p =
@@ -257,6 +237,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1) {
 
   pythia.readString("Random:setSeed = on");
   pythia.readString("Random:seed = 10");
+  pythia.readString("Next:numberCount = 0"); // numero dei conti disattivato
   pythia.readString("PartonVertex:setVertex = on");
   pythia.readString("Fragmentation:setVertices = on");
   pythia.readString("Tune:pp = 4");
@@ -265,6 +246,17 @@ int main142(const int nevs = 1e4, const bool Dprod = 1) {
   pythia.readString("SoftQCD:inelastic = on");
   if (Dprod == true) {
     pythia.readString("HadronLevel:DeuteronProduction = on");
+
+    // norm = 1000 / (3.179165 * value_from_table)
+    // deuterone -> 1/sigma = 1.7136 1/barn
+    // antideut  -> 1/sigma = 1.56872 1/barn
+    // norm default = 119.6
+    // norm deuterone = 183.5597586
+    // norm antideut = 200.51252128
+    pythia.readString("DeuteronProduction:norm = 183.5597586");
+
+    // pythia.readString("DeuteronProduction:models = {1,2,3,3,2,3,2,3}");
+
   } else {
     pythia.readString("HadronLevel:DeuteronProduction = off");
   }
@@ -275,16 +267,6 @@ int main142(const int nevs = 1e4, const bool Dprod = 1) {
 
   auto &event = pythia.event;
 
-  /* // 90'000 eventi in 3 minuti e 51sec = 231sec.
-  // velocità esecuzione => 90'000/231 = 389.61 ev. per sec,
-  // quindi il tempo totale di esecuzione è circa
-  int exe_time = nevs / 389.61;
-  int exe_minutes = exe_time / 60;
-  int exe_rem_seconds = exe_time % 60;
-
-  std::cout << "Estimated execution time: " << exe_minutes << " min e "
-            << exe_rem_seconds << " sec \n"; */
-
   // array per contenere le pdg codes delle particelle prodotte da una rezione
   // con D
   std::array<int, 3> PDGarray;
@@ -292,6 +274,9 @@ int main142(const int nevs = 1e4, const bool Dprod = 1) {
   // cronometro per monitorare il tempo rimanente
   TStopwatch stopwatch;
   stopwatch.Start(); // fai partire il cronometro
+
+  /*   // un log che tiene conto dell'andamento della simulazione
+    Pythia8::ProgressLog logger(nevs); */
 
   // TODO
   double elapsed_time;         // Tempo reale trascorso
@@ -346,7 +331,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1) {
              <<
          "\033[1;32mdeuteron!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\033[0m"
              << '\n';*/
-         h_pt_deuteron->Fill(pt);
+        h_pt_deuteron->Fill(pt);
 
         const auto &mother1 = event[p.mother1()];
         const int mom1id = mother1.id(); // pdg della mother1
@@ -523,49 +508,55 @@ int main142(const int nevs = 1e4, const bool Dprod = 1) {
       }
     }
 
-    elapsed_time = stopwatch.RealTime();
-    stopwatch.Continue(); // riprendi il cronometro
-    // estimated_total_time = (elapsed_time / iEvent) * nevs;
-    // remaining_time = estimated_total_time - elapsed_time;
-    showProgressBar(iEvent, nevs,
-                    elapsed_time); // mostra la barra di progressione
+    if (iEvent % 100 == 0) {
+      elapsed_time = stopwatch.RealTime();
+      stopwatch.Continue(); // riprendi il cronometro
+      showProgressBar(iEvent, nevs,
+                      elapsed_time); // mostra la barra di progressione
+    }
+    // logger(iEvent);
   }
-
-  // copia degli istogrammi non riscalati
-  /* TH1D *h_proton = new TH1D(*h_pt_proton);
-  TH1D *h_antiproton = new TH1D(*h_pt_antiproton);
-  TH1D *h_deuteron = new TH1D(*h_pt_deuteron);
-  TH1D *h_antideuteron = new TH1D(*h_pt_antideuteron); */
 
   // riempimento istogrammi totali dei protoni e dei deuteroni
   h_pt_tot_pp->Add(h_pt_proton, h_pt_antiproton, 1, 1);
   h_pt_tot_DD->Add(h_pt_deuteron, h_pt_antideuteron, 1, 1);
 
+  // lambda da applicare a tutti gli istogrammi
+  auto action_hist_lambda = [nevs](TH1D *hist) {
+    if (hist) {
+      /// std::cout << "vector of hist" << '\n';
+      // riscalaggio grafici
+      hist->Scale(1. / nevs, "width");
+      // salvataggio grafici
+      hist->Write();
+    }
+  };
+
   // file di output
   TFile *resultfile = new TFile("main142.root", "RECREATE");
-  std::for_each(all_histo_vector.begin(), all_histo_vector.end(),
-                [nevs](std::vector<TH1D *> *h_vect) {
+  // sotto directory
+  TDirectory *p_D_dir = resultfile->mkdir("p_D_production");
+  TDirectory *D_dir = resultfile->mkdir("deuteron");
+  gDirectory->cd("p_D_production");
+  // riscala e salva gli istogrammi
+  std::for_each(h_main_vector.begin(), h_main_vector.end(), action_hist_lambda);
+  gDirectory->cd("..");
+
+  // vai nella cartella deuteron
+  gDirectory->cd("deuteron");
+  std::for_each(h_vector_p_n.begin(), h_vector_p_n.end(), action_hist_lambda);
+  std::for_each(h_vector_p_p.begin(), h_vector_p_p.end(), action_hist_lambda);
+  std::for_each(h_vector_n_n.begin(), h_vector_n_n.end(), action_hist_lambda);
+  gDirectory->cd("..");
+
+  /* std::for_each(all_histo_vector.begin(), all_histo_vector.end(),
+                [nevs, action_hist_lambda](std::vector<TH1D *> *h_vect) {
                   if (h_vect) {
                     /// std::cout << "vector of vector of hist" << '\n';
                     std::for_each(h_vect->begin(), h_vect->end(),
-                                  [nevs](TH1D *hist) {
-                                    if (hist) {
-                                      /// std::cout << "vector of hist" << '\n';
-                                      // riscalaggio grafici
-                                      hist->Scale(1. / nevs, "width");
-                                      // salvataggio grafici
-                                      hist->Write();
-                                    }
-                                  });
+                                  action_hist_lambda);
                   }
-                });
-
-  // salvataggio grafici NON riscalati
-  /*   TFile *testfile = new TFile("main142_NR.root", "RECREATE");
-    h_proton->Write();
-    h_antiproton->Write();
-    h_deuteron->Write();
-    h_antideuteron->Write(); */
+                }); */
 
   resultfile->Close(); // chiusura file (anche se lo fa in automatico)
   return 0;
