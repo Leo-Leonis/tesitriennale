@@ -19,7 +19,7 @@ int deuteron_analyse(bool do_print = 0) {
   gStyle->SetStripDecimals(kFALSE); // stessi numeri di decimali
 
   // prendi i file
-  TFile *simu_ON_file = new TFile("simu_data/main142_new_1e7.root", "READ");
+  TFile *simu_ON_file = new TFile("simu_data/main142_D_ON_1e7.root", "READ");
   // TFile *root_deuteron_file = new TFile("cern_data/deuteron_pt.root",
   // "READ");
   /* TFile *root_antideuteron_file =
@@ -129,7 +129,7 @@ int deuteron_analyse(bool do_print = 0) {
   TH1D *h_p_n_1 = new TH1D(*h_vector_norm_p_n[1]);
   h_p_n_1->SetFillColor(kRed + 2);
   h_p_n_1->SetLineColor(kBlack);
-  h_p_n_1->SetTitle("D relative #it{p}_{t} distribution from p+n");
+  h_p_n_1->SetTitle("Deuteron relative #it{p}_{t} distribution from p+n");
   TH1D *h_p_n_1_3 = new TH1D(*h_p_n_1);
   h_p_n_1_3->Add(h_vector_norm_p_n[3]);
   h_p_n_1_3->SetFillColor(kRed);
