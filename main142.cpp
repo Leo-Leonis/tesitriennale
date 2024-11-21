@@ -19,9 +19,9 @@
 
 // ritorna la stringa del tempo da secondi al formato h,m,s
 std::string formatHMSTime(double seconds) {
-  int h = static_cast<int>(seconds) / 3600;        // ore rimaste
-  int m = (static_cast<int>(seconds) % 3600) / 60; // min rimasti
-  int s = static_cast<int>(seconds) % 60;          // secondi rimasti
+  int const h = static_cast<int>(seconds) / 3600;        // ore rimaste
+  int const m = (static_cast<int>(seconds) % 3600) / 60; // min rimasti
+  int const s = static_cast<int>(seconds) % 60;          // secondi rimasti
   std::ostringstream timeStream; // elemento ostringstream da costruire
   timeStream << std::setw(2) << std::setfill('0') << h << "h" << std::setw(2)
              << std::setfill('0') << m << "m" << std::setw(2)
@@ -31,8 +31,8 @@ std::string formatHMSTime(double seconds) {
 
 // mostra una barra di progressione
 void showProgressBar(int progress, int total, double elapsed_time) {
-  int barWidth = 40; // Larghezza in pixel della barra di progresso
-  float progressPercentage = (float)progress / total;
+  int const barWidth = 40; // Larghezza in pixel della barra di progresso
+  float const progressPercentage = (float)progress / total;
 
   std::cout << "\033[33m[";
 
@@ -59,7 +59,8 @@ void showProgressBar(int progress, int total, double elapsed_time) {
   std::cout.flush(); // Assicura che la barra venga aggiornata immediatamente
 }
 
-int main142(const int nevs = 1e4, const bool Dprod = 1) {
+int main142(const int nevs = 1e4, const bool Dprod = 1,
+            const bool coal_mod = 0) {
 
   gStyle->SetOptStat(2200);
   // gStyle->SetOptFit(1111);
@@ -89,33 +90,39 @@ int main142(const int nevs = 1e4, const bool Dprod = 1) {
   TH1D *h_pt_proton =
       new TH1D("h_pt_proton",
                "Proton #it{p}_{t} distribution;Transverse "
-               "momentum #it{p}_{t} [GeV/c];Occurance [(GeV/c)^{-1}];",
+               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
+               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
                n_bins_pp, bin_edges_pp);
   TH1D *h_pt_antiproton =
       new TH1D("h_pt_antiproton",
                "Antiproton #it{p}_{t} distribution;Transverse "
-               "momentum #it{p}_{t} [GeV/c];Occurance [(GeV/c)^{-1}];",
+               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
+               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
                n_bins_pp, bin_edges_pp);
   TH1D *h_pt_tot_pp =
       new TH1D("h_pt_tot_pp",
                "p+#bar{p} #it{p}_{t} distribution;Transverse "
-               "momentum #it{p}_{t} [GeV/c];Occurance [(GeV/c)^{-1}];",
+               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
+               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
                n_bins_pp, bin_edges_pp);
 
   TH1D *h_pt_deuteron =
       new TH1D("h_pt_deuteron",
                "Deuteron #it{p}_{t} distribution;Transverse "
-               "momentum #it{p}_{t} [GeV/c];Occurance [(GeV/c)^{-1}];",
+               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
+               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
                n_bins_DD, bin_edges_DD);
   TH1D *h_pt_antideuteron =
       new TH1D("h_pt_antideuteron",
                "Antideuteron #it{p}_{t} distribution;Transverse "
-               "momentum #it{p}_{t} [GeV/c];Occurance [(GeV/c)^{-1}];",
+               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
+               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
                n_bins_DD, bin_edges_DD);
   TH1D *h_pt_tot_DD =
       new TH1D("h_pt_tot_DD",
                "D+#bar{D} #it{p}_{t} distribution;Transverse "
-               "momentum #it{p}_{t} [GeV/c];Occurance [(GeV/c)^{-1}];",
+               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
+               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
                n_bins_DD, bin_edges_DD);
 
   std::vector<TH1D *> h_main_vector;
@@ -132,32 +139,37 @@ int main142(const int nevs = 1e4, const bool Dprod = 1) {
   TH1D *h_pt_deuteron_in_p_n =
       new TH1D("h_pt_deuteron_in_p_n",
                "Deuteron #it{p}_{t} distribution from p+n;Transverse "
-               "momentum #it{p}_{t} [GeV/c];Occurance [(GeV/c)^{-1}];",
+               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
+               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
                n_bins_DD, bin_edges_DD);
 
   //// distribuzione di D prodotti da p+n a g+D
   TH1D *h_pt_deuteron_out_g_D =
       new TH1D("h_pt_deuteron_out_g_D",
                "D #it{p}_{t} distribution from p+n to #gamma+D;Transverse "
-               "momentum #it{p}_{t} [GeV/c];Occurance [(GeV/c)^{-1}];",
+               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
+               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
                n_bins_DD, bin_edges_DD);
   //// distribuzione di D prodotti da p+n a pi0+D
   TH1D *h_pt_deuteron_out_pi0_D =
       new TH1D("h_pt_deuteron_out_pi0_D",
                "D #it{p}_{t} distribution from p+n to #pi^{0}+D;Transverse "
-               "momentum #it{p}_{t} [GeV/c];Occurance [(GeV/c)^{-1}];",
+               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
+               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
                n_bins_DD, bin_edges_DD);
   //// distribuzione di D prodotti da p+n a piP+piM+D
   TH1D *h_pt_deuteron_out_piP_piM_D = new TH1D(
       "h_pt_deuteron_out_piP_piM_D",
       "D #it{p}_{t} distribution from p+n to #pi^{+}+#pi^{-}+D;Transverse "
-      "momentum #it{p}_{t} [GeV/c];Occurance [(GeV/c)^{-1}];",
+      "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} #frac{d^{2}N}{dp_{t}dy} "
+      "[(GeV/c)^{-1}];",
       n_bins_DD, bin_edges_DD);
   //// distribuzione di D prodotti da p+n a pi0+pi0+D
   TH1D *h_pt_deuteron_out_pi0_pi0_D = new TH1D(
       "h_pt_deuteron_out_pi0_pi0_D",
       "D #it{p}_{t} distribution from p+n to #pi^{0}+#pi^{0}+D;Transverse "
-      "momentum #it{p}_{t} [GeV/c];Occurance [(GeV/c)^{-1}];",
+      "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} #frac{d^{2}N}{dp_{t}dy} "
+      "[(GeV/c)^{-1}];",
       n_bins_DD, bin_edges_DD);
 
   std::vector<TH1D *> h_vector_deuteron;
@@ -171,20 +183,23 @@ int main142(const int nevs = 1e4, const bool Dprod = 1) {
   TH1D *h_pt_deuteron_in_p_p =
       new TH1D("h_pt_deuteron_in_p_p",
                "Deuteron #it{p}_{t} distribution from p+p;Transverse "
-               "momentum #it{p}_{t} [GeV/c];Occurance [(GeV/c)^{-1}];",
+               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
+               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
                n_bins_DD, bin_edges_DD);
 
   //// distribuzione di D prodotti da p+p a piP+D
   TH1D *h_pt_deuteron_out_piP_D =
       new TH1D("h_pt_deuteron_out_piP_D",
                "D #it{p}_{t} distribution from p+p to #pi^{+}+D;Transverse "
-               "momentum #it{p}_{t} [GeV/c];Occurance [(GeV/c)^{-1}];",
+               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
+               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
                n_bins_DD, bin_edges_DD);
   //// distribuzione di D prodotti da p+p a piP+pi0+D
   TH1D *h_pt_deuteron_out_piP_pi0_D = new TH1D(
       "h_pt_deuteron_out_piP_pi0_D",
       "D #it{p}_{t} distribution from p+p to #pi^{+}+#pi^{0}+D;Transverse "
-      "momentum #it{p}_{t} [GeV/c];Occurance [(GeV/c)^{-1}];",
+      "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} #frac{d^{2}N}{dp_{t}dy} "
+      "[(GeV/c)^{-1}];",
       n_bins_DD, bin_edges_DD);
 
   h_vector_deuteron.push_back(h_pt_deuteron_in_p_p);
@@ -195,20 +210,23 @@ int main142(const int nevs = 1e4, const bool Dprod = 1) {
   TH1D *h_pt_deuteron_in_n_n =
       new TH1D("h_pt_deuteron_in_n_n",
                "Deuteron #it{p}_{t} distribution from n+n;Transverse "
-               "momentum #it{p}_{t} [GeV/c];Occurance [(GeV/c)^{-1}];",
+               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
+               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
                n_bins_DD, bin_edges_DD);
 
   //// distribuzione di D prodotti da n+n a piM+D
   TH1D *h_pt_deuteron_out_piM_D =
       new TH1D("h_pt_deuteron_out_piM_D",
                "D #it{p}_{t} distribution from p+p to #pi^{-}+D;Transverse "
-               "momentum #it{p}_{t} [GeV/c];Occurance [(GeV/c)^{-1}];",
+               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
+               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
                n_bins_DD, bin_edges_DD);
   //// distribuzione di D prodotti da n+n a piM+pi0+D
   TH1D *h_pt_deuteron_out_piM_pi0_D = new TH1D(
       "h_pt_deuteron_out_piM_pi0_D",
       "D #it{p}_{t} distribution from p+p to #pi^{-}+#pi^{0}+D;Transverse "
-      "momentum #it{p}_{t} [GeV/c];Occurance [(GeV/c)^{-1}];",
+      "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} #frac{d^{2}N}{dp_{t}dy} "
+      "[(GeV/c)^{-1}];",
       n_bins_DD, bin_edges_DD);
 
   h_vector_deuteron.push_back(h_pt_deuteron_in_n_n);
@@ -221,7 +239,8 @@ int main142(const int nevs = 1e4, const bool Dprod = 1) {
   TH1D *h_pt_antideuteron_in_p_n = new TH1D(
       "h_pt_antideuteron_in_p_n",
       "Antideuteron #it{p}_{t} distribution from #bar{p}+#bar{n};Transverse "
-      "momentum #it{p}_{t} [GeV/c];Occurance [(GeV/c)^{-1}];",
+      "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} #frac{d^{2}N}{dp_{t}dy} "
+      "[(GeV/c)^{-1}];",
       n_bins_DD, bin_edges_DD);
 
   //// distribuzione di D- prodotti da p+n a g+D-
@@ -229,29 +248,31 @@ int main142(const int nevs = 1e4, const bool Dprod = 1) {
       new TH1D("h_pt_antideuteron_out_g_D",
                "#bar{D} #it{p}_{t} distribution from #bar{p}+#bar{n} to "
                "#gamma+#bar{D};Transverse "
-               "momentum #it{p}_{t} [GeV/c];Occurance [(GeV/c)^{-1}];",
+               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
+               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
                n_bins_DD, bin_edges_DD);
   //// distribuzione di D- prodotti da p+n a pi0+D-
   TH1D *h_pt_antideuteron_out_pi0_D =
       new TH1D("h_pt_antideuteron_out_pi0_D",
                "#bar{D} #it{p}_{t} distribution from #bar{p}+#bar{n} to "
                "#pi^{0}+#bar{D};Transverse "
-               "momentum #it{p}_{t} [GeV/c];Occurance [(GeV/c)^{-1}];",
+               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
+               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
                n_bins_DD, bin_edges_DD);
   //// distribuzione di D- prodotti da p+n a piP+piM+D-
-  TH1D *h_pt_antideuteron_out_piP_piM_D =
-      new TH1D("h_pt_antideuteron_out_piP_piM_D",
-               "#bar{D} #it{p}_{t} distribution from #bar{p}+#bar{n} to "
-               "#pi^{+}+#pi^{-}+#bar{D};Transverse momentum #it{p}_{t} "
-               "[GeV/c];Occurance [(GeV/c)^{-1}];",
-               n_bins_DD, bin_edges_DD);
+  TH1D *h_pt_antideuteron_out_piP_piM_D = new TH1D(
+      "h_pt_antideuteron_out_piP_piM_D",
+      "#bar{D} #it{p}_{t} distribution from #bar{p}+#bar{n} to "
+      "#pi^{+}+#pi^{-}+#bar{D};Transverse momentum #it{p}_{t} "
+      "[GeV/c];#frac{1}{N_{events} #frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
+      n_bins_DD, bin_edges_DD);
   //// distribuzione di D- prodotti da p+n a pi0+pi0+D-
-  TH1D *h_pt_antideuteron_out_pi0_pi0_D =
-      new TH1D("h_pt_antideuteron_out_pi0_pi0_D",
-               "#bar{D} #it{p}_{t} distribution from #bar{p}+#bar{n} to "
-               "#pi^{0}+#pi^{0}+#bar{D};Transverse momentum #it{p}_{t} "
-               "[GeV/c];Occurance [(GeV/c)^{-1}];",
-               n_bins_DD, bin_edges_DD);
+  TH1D *h_pt_antideuteron_out_pi0_pi0_D = new TH1D(
+      "h_pt_antideuteron_out_pi0_pi0_D",
+      "#bar{D} #it{p}_{t} distribution from #bar{p}+#bar{n} to "
+      "#pi^{0}+#pi^{0}+#bar{D};Transverse momentum #it{p}_{t} "
+      "[GeV/c];#frac{1}{N_{events} #frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
+      n_bins_DD, bin_edges_DD);
 
   std::vector<TH1D *> h_vector_antideuteron;
   h_vector_antideuteron.push_back(h_pt_antideuteron_in_p_n);
@@ -264,23 +285,24 @@ int main142(const int nevs = 1e4, const bool Dprod = 1) {
   TH1D *h_pt_antideuteron_in_p_p = new TH1D(
       "h_pt_antideuteron_in_p_p",
       "Antideuteron #it{p}_{t} distribution from #bar{p}+#bar{p};Transverse "
-      "momentum #it{p}_{t} [GeV/c];Occurance [(GeV/c)^{-1}];",
+      "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} #frac{d^{2}N}{dp_{t}dy} "
+      "[(GeV/c)^{-1}];",
       n_bins_DD, bin_edges_DD);
 
   //// distribuzione di D- prodotti da p+p a piM+D-
-  TH1D *h_pt_antideuteron_out_piM_D =
-      new TH1D("h_pt_antideuteron_out_piM_D",
-               "#bar{D} #it{p}_{t} distribution from #bar{p}+#bar{p} to "
-               "#pi^{-}+#bar{D};Transverse momentum #it{p}_{t} "
-               "[GeV/c];Occurance [(GeV/c)^{-1}];",
-               n_bins_DD, bin_edges_DD);
+  TH1D *h_pt_antideuteron_out_piM_D = new TH1D(
+      "h_pt_antideuteron_out_piM_D",
+      "#bar{D} #it{p}_{t} distribution from #bar{p}+#bar{p} to "
+      "#pi^{-}+#bar{D};Transverse momentum #it{p}_{t} "
+      "[GeV/c];#frac{1}{N_{events} #frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
+      n_bins_DD, bin_edges_DD);
   //// distribuzione di D- prodotti da p+p a piM+pi0+D-
-  TH1D *h_pt_antideuteron_out_pi0_piM_D =
-      new TH1D("h_pt_antideuteron_out_pi0_piM_D",
-               "#bar{D} #it{p}_{t} distribution from #bar{p}+#bar{p} to "
-               "#pi^{-}+#pi^{0}+#bar{D};Transverse momentum #it{p}_{t} "
-               "[GeV/c];Occurance [(GeV/c)^{-1}];",
-               n_bins_DD, bin_edges_DD);
+  TH1D *h_pt_antideuteron_out_pi0_piM_D = new TH1D(
+      "h_pt_antideuteron_out_pi0_piM_D",
+      "#bar{D} #it{p}_{t} distribution from #bar{p}+#bar{p} to "
+      "#pi^{-}+#pi^{0}+#bar{D};Transverse momentum #it{p}_{t} "
+      "[GeV/c];#frac{1}{N_{events} #frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
+      n_bins_DD, bin_edges_DD);
 
   h_vector_antideuteron.push_back(h_pt_antideuteron_in_p_p);
   h_vector_antideuteron.push_back(h_pt_antideuteron_out_piM_D);
@@ -290,23 +312,24 @@ int main142(const int nevs = 1e4, const bool Dprod = 1) {
   TH1D *h_pt_antideuteron_in_n_n = new TH1D(
       "h_pt_antideuteron_in_n_n",
       "Antideuteron #it{p}_{t} distribution from #bar{n}+#bar{n};Transverse "
-      "momentum #it{p}_{t} [GeV/c];Occurance [(GeV/c)^{-1}];",
+      "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} #frac{d^{2}N}{dp_{t}dy} "
+      "[(GeV/c)^{-1}];",
       n_bins_DD, bin_edges_DD);
 
   //// distribuzione di D- prodotti da n+n a piP+D-
-  TH1D *h_pt_antideuteron_out_piP_D =
-      new TH1D("h_pt_antideuteron_out_piP_D",
-               "#bar{D} #it{p}_{t} distribution from #bar{n}+#bar{n} to "
-               "#pi^{+}+#bar{D};Transverse momentum #it{p}_{t} "
-               "[GeV/c];Occurance [(GeV/c)^{-1}];",
-               n_bins_DD, bin_edges_DD);
+  TH1D *h_pt_antideuteron_out_piP_D = new TH1D(
+      "h_pt_antideuteron_out_piP_D",
+      "#bar{D} #it{p}_{t} distribution from #bar{n}+#bar{n} to "
+      "#pi^{+}+#bar{D};Transverse momentum #it{p}_{t} "
+      "[GeV/c];#frac{1}{N_{events} #frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
+      n_bins_DD, bin_edges_DD);
   //// distribuzione di D- prodotti da n+n a piP+pi0+D-
-  TH1D *h_pt_antideuteron_out_piP_pi0_D =
-      new TH1D("h_pt_antideuteron_out_piP_pi0_D",
-               "#bar{D} #it{p}_{t} distribution from #bar{n}+#bar{n} to "
-               "#pi^{+}+#pi^{0}+#bar{D};Transverse momentum #it{p}_{t} "
-               "[GeV/c];Occurance [(GeV/c)^{-1}];",
-               n_bins_DD, bin_edges_DD);
+  TH1D *h_pt_antideuteron_out_piP_pi0_D = new TH1D(
+      "h_pt_antideuteron_out_piP_pi0_D",
+      "#bar{D} #it{p}_{t} distribution from #bar{n}+#bar{n} to "
+      "#pi^{+}+#pi^{0}+#bar{D};Transverse momentum #it{p}_{t} "
+      "[GeV/c];#frac{1}{N_{events} #frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
+      n_bins_DD, bin_edges_DD);
 
   h_vector_antideuteron.push_back(h_pt_antideuteron_in_n_n);
   h_vector_antideuteron.push_back(h_pt_antideuteron_out_piP_D);
@@ -318,6 +341,10 @@ int main142(const int nevs = 1e4, const bool Dprod = 1) {
     all_histo_vector.push_back(&h_vector_deuteron);
     all_histo_vector.push_back(&h_vector_deuteron);
     all_histo_vector.push_back(&h_vector_deuteron); */
+
+  // cronometro per monitorare il tempo rimanente
+  TStopwatch stopwatch;
+  stopwatch.Start(); // fai partire il cronometro
 
   // Inizializzazione impostazioni di pythia
   Pythia8::Pythia pythia;
@@ -345,14 +372,26 @@ int main142(const int nevs = 1e4, const bool Dprod = 1) {
     // norm default = 119.6 [A]
     // norm deuterone = 183.5597586 [B]
     // norm antideut = 200.51252128 [C]
-    // norm fit lin [A,B] = 137.26665 [D] <- abbastanza soddisfacente 
-    // norm fit lin [A,B,D] = 130 [E]
+    // norm fit lin [A,B] = 137.26665 [D] <- abbastanza soddisfacente
+    // norm fit = 1 [E] caso mod coalescenza
     pythia.readString("DeuteronProduction:norm = 137.26665");
-
-    // pythia.readString("DeuteronProduction:models = {1,2,3,3,2,3,2,3}");
-
   } else {
     pythia.readString("HadronLevel:DeuteronProduction = off");
+  }
+
+  if (coal_mod == 1) { // modello di coalescenza prevede solo capture radiattiva
+    // normalizzazione = 1 perché vogliamo essere certi che verrà prodotta il
+    // deuterone
+    pythia.readString("DeuteronProduction:norm = 1");
+    pythia.readString(
+        "DeuteronProduction:channels = {2212 2112 > 22}"); // solo capture
+                                                           // radiattiva
+    pythia.readString(
+        "DeuteronProduction:models = {0}"); // modifica del primo canale
+                                            // di produzione (a coal.)
+    pythia.readString(
+        "DeuteronProduction:parms = {0.195 1}"); // modifica del param del primo
+                                                 // canale di produzione
   }
 
   // se Pythia si rompe, uccidi il programma.
@@ -365,17 +404,17 @@ int main142(const int nevs = 1e4, const bool Dprod = 1) {
   // con D
   std::array<int, 3> PDGarray;
 
-  // cronometro per monitorare il tempo rimanente
-  TStopwatch stopwatch;
-  stopwatch.Start(); // fai partire il cronometro
-
   /*   // un log che tiene conto dell'andamento della simulazione
     Pythia8::ProgressLog logger(nevs); */
 
-  // TODO
   double elapsed_time;         // Tempo reale trascorso
   double estimated_total_time; // Stima del tempo totale
   double remaining_time;       // Stima del tempo rimanente
+
+  elapsed_time = stopwatch.RealTime();
+  std::cout << "\033[1;31mLEO_INFO: Init time: " << formatHMSTime(elapsed_time)
+            << "\033[0m";
+  stopwatch.Reset(); // riprendi il cronometro
 
   //////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////
@@ -811,7 +850,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1) {
   TDirectory *p_D_dir = resultfile->mkdir("p_D_production");
   TDirectory *deuteron_dir = resultfile->mkdir("deuteron");
   TDirectory *antideuteron_dir = resultfile->mkdir("antideuteron");
-  
+
   gDirectory->cd("p_D_production");
   // riscala e salva gli istogrammi
   std::for_each(h_main_vector.begin(), h_main_vector.end(), action_hist_lambda);
