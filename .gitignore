@@ -5,13 +5,14 @@ runPythia.py
 *.so
 *.d
 *.pcm
+*.pdf
+*.root
 test.cpp
 test
+param.txt
 
 main142_OFF_1e4.root
 main142_OFF_1e5.root
 main142_ON_1e4.root
 main142_ON_1e5.root
 main142_1e5.root
-
-*.pdf
