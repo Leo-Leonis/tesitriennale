@@ -10,16 +10,39 @@
 
 // NON COMPILARE QUESTO PROGRAMMA SENZA AVER PRIMA ACCESO MOBA
 
-int antideuteron_analyse(bool do_print = 0) {
+int antideuteron_analyse(const int analyse_id = -1, bool const do_print = 0) {
 
-  gStyle->SetPadLeftMargin(.12);
-  gStyle->SetPadRightMargin(0.08);
+  std::string analyse_file;
+  switch (analyse_id) {
+  case 0:
+    analyse_file = "simu_data/main142_A_1e7.root";
+    break;
+  case 1:
+    analyse_file = "simu_data/main142_B_1e7.root";
+    break;
+  case 2:
+    analyse_file = "simu_data/main142_D_1e7.root";
+    break;
+  case 4:
+    analyse_file = "simu_data/main142_F_1e7.root";
+    break;
+  case 3:
+    analyse_file = "simu_data/main142_E_1e7.root";
+  default:
+    std::cout << "LEO_ERROR: Invalid analyse_id, allowed are: 0(A), 1(B), "
+                 "2(D), 4(F)"
+              << '\n';
+    return 0;
+  }
+
+  gStyle->SetPadLeftMargin(.14);
+  gStyle->SetPadRightMargin(0.06);
   gStyle->SetOptStat(0); // 10 per vedere le entries
 
   gStyle->SetStripDecimals(kFALSE); // stessi numeri di decimali
 
   // prendi i file
-  TFile *simu_ON_file = new TFile("simu_data/main142_D_ON_1e7.root", "READ");
+  TFile *simu_ON_file = new TFile(analyse_file.c_str(), "READ");
   // TFile *root_deuteron_file = new TFile("cern_data/deuteron_pt.root",
   // "READ");
   /* TFile *root_antideuteron_file =
@@ -73,7 +96,8 @@ int antideuteron_analyse(bool do_print = 0) {
   // disegna gli istogrammi a partire da quello con più entries
   h_vector_p_n[1]->SetLineColor(kRed + 2);
   h_vector_p_n[1]->SetMarkerColor(kRed + 2);
-  h_vector_p_n[1]->SetTitle("Antideuteron #it{p}_{t} distribution from #bar{p}+#bar{n}");
+  h_vector_p_n[1]->SetTitle(
+      "Antideuteron #it{p}_{t} distribution from #bar{p}+#bar{n}");
   h_vector_p_n[3]->SetLineColor(kRed);
   h_vector_p_n[3]->SetMarkerColor(kRed);
   h_vector_p_n[2]->SetLineColor(kOrange - 3);
@@ -88,11 +112,15 @@ int antideuteron_analyse(bool do_print = 0) {
   h_vector_p_n[0]->Draw("e1,p,same");
 
   // aggiungi la legenda, "p" per disegnare il marker, "e" per gli errori
-  TLegend *p_n_legend = new TLegend(.62, .7, .92, .9);
-  p_n_legend->AddEntry(h_vector_p_n[1], "#bar{p}+#bar{n} to #pi^{0}+#bar{D}", "pe");
-  p_n_legend->AddEntry(h_vector_p_n[3], "#bar{p}+#bar{n} to #pi^{+}+#pi^{-}+#bar{D}", "pe");
-  p_n_legend->AddEntry(h_vector_p_n[2], "#bar{p}+#bar{n} to #pi^{0}+#pi^{0}+#bar{D}", "pe");
-  p_n_legend->AddEntry(h_vector_p_n[0], "#bar{p}+#bar{n} to #gamma+#bar{D}", "pe");
+  TLegend *p_n_legend = new TLegend(.64, .7, .94, .9);
+  p_n_legend->AddEntry(h_vector_p_n[1], "#bar{p}+#bar{n} to #pi^{0}+#bar{D}",
+                       "pe");
+  p_n_legend->AddEntry(h_vector_p_n[3],
+                       "#bar{p}+#bar{n} to #pi^{+}+#pi^{-}+#bar{D}", "pe");
+  p_n_legend->AddEntry(h_vector_p_n[2],
+                       "#bar{p}+#bar{n} to #pi^{0}+#pi^{0}+#bar{D}", "pe");
+  p_n_legend->AddEntry(h_vector_p_n[0], "#bar{p}+#bar{n} to #gamma+#bar{D}",
+                       "pe");
   p_n_legend->Draw("Same");
 
   //////////////////////////////////////////////////////////
@@ -129,7 +157,10 @@ int antideuteron_analyse(bool do_print = 0) {
   TH1D *h_p_n_1 = new TH1D(*h_vector_norm_p_n[1]);
   h_p_n_1->SetFillColor(kRed + 2);
   h_p_n_1->SetLineColor(kBlack);
-  h_p_n_1->SetTitle("Antideuteron relative #it{p}_{t} distribution from #bar{p}+#bar{n}");
+  h_p_n_1->SetTitle(
+      "Antideuteron relative #it{p}_{t} distribution from "
+      "#bar{p}+#bar{n};Transverse momentum #it{p}_{t} [GeV/c];Ratio value");
+  h_p_n_1->SetTitleOffset(1.3);
   TH1D *h_p_n_1_3 = new TH1D(*h_p_n_1);
   h_p_n_1_3->Add(h_vector_norm_p_n[3]);
   h_p_n_1_3->SetFillColor(kRed);
@@ -153,11 +184,15 @@ int antideuteron_analyse(bool do_print = 0) {
   gPad->RedrawAxis("G");
 
   // aggiungi la legenda, "f" per l'opzione fill
-  TLegend *p_n_stack_legend = new TLegend(.12, .1, .42, .3);
-  p_n_stack_legend->AddEntry(h_p_n_0_1_2_3, "#bar{p}+#bar{n} to #gamma+#bar{D}", "f");
-  p_n_stack_legend->AddEntry(h_p_n_1_2_3, "#bar{p}+#bar{n} to #pi^{0}+#pi^{0}+#bar{D}", "f");
-  p_n_stack_legend->AddEntry(h_p_n_1_3, "#bar{p}+#bar{n} to #pi^{+}+#pi^{-}+#bar{D}", "f");
-  p_n_stack_legend->AddEntry(h_p_n_1, "#bar{p}+#bar{n} to #pi^{0}+#bar{D}", "f");
+  TLegend *p_n_stack_legend = new TLegend(.14, .1, .44, .3);
+  p_n_stack_legend->AddEntry(h_p_n_0_1_2_3, "#bar{p}+#bar{n} to #gamma+#bar{D}",
+                             "f");
+  p_n_stack_legend->AddEntry(h_p_n_1_2_3,
+                             "#bar{p}+#bar{n} to #pi^{0}+#pi^{0}+#bar{D}", "f");
+  p_n_stack_legend->AddEntry(h_p_n_1_3,
+                             "#bar{p}+#bar{n} to #pi^{+}+#pi^{-}+#bar{D}", "f");
+  p_n_stack_legend->AddEntry(h_p_n_1, "#bar{p}+#bar{n} to #pi^{0}+#bar{D}",
+                             "f");
   p_n_stack_legend->Draw("Same");
 
   ////////////////////////////////////////////////////////////////////////////
@@ -191,7 +226,8 @@ int antideuteron_analyse(bool do_print = 0) {
   // disegna gli istogrammi
   h_vector_p_p[0]->SetLineColor(kBlue);
   h_vector_p_p[0]->SetMarkerColor(kBlue);
-  h_vector_p_p[0]->SetTitle("Antideuteron #it{p}_{t} distribution from #bar{p}+#bar{p}");
+  h_vector_p_p[0]->SetTitle(
+      "Antideuteron #it{p}_{t} distribution from #bar{p}+#bar{p}");
   h_vector_p_p[1]->SetLineColor(kAzure + 10);
   h_vector_p_p[1]->SetMarkerColor(kAzure + 10);
 
@@ -199,9 +235,11 @@ int antideuteron_analyse(bool do_print = 0) {
   h_vector_p_p[1]->Draw("e1,p,same");
 
   // aggiungi la legenda
-  TLegend *p_p_legend = new TLegend(.62, .8, .92, .9);
-  p_p_legend->AddEntry(h_vector_p_p[0], "#bar{p}+#bar{p} to #pi^{-}+#bar{D}", "pe");         //
-  p_p_legend->AddEntry(h_vector_p_p[1], "#bar{p}+#bar{p} to #pi^{-}+#pi^{0}+#bar{D}", "pe"); //
+  TLegend *p_p_legend = new TLegend(.64, .8, .94, .9);
+  p_p_legend->AddEntry(h_vector_p_p[0], "#bar{p}+#bar{p} to #pi^{-}+#bar{D}",
+                       "pe"); //
+  p_p_legend->AddEntry(h_vector_p_p[1],
+                       "#bar{p}+#bar{p} to #pi^{-}+#pi^{0}+#bar{D}", "pe"); //
   p_p_legend->Draw("Same");
 
   //////////////////////////////////////////////////////////////////////////
@@ -228,7 +266,10 @@ int antideuteron_analyse(bool do_print = 0) {
   TH1D *h_p_p_0 = new TH1D(*h_vector_norm_p_p[0]);
   h_p_p_0->SetFillColor(kBlue);
   h_p_p_0->SetLineColor(kBlack);
-  h_p_p_0->SetTitle("Antideuteron relative #it{p}_{t} distribution from #bar{p}+#bar{p}");
+  h_p_p_0->SetTitle(
+      "Antideuteron relative #it{p}_{t} distribution from "
+      "#bar{p}+#bar{p};Transverse momentum #it{p}_{t} [GeV/c];Ratio value");
+  h_p_p_0->SetTitleOffset(1.3);
   TH1D *h_p_p_0_1 = new TH1D(*h_p_p_0);
   h_p_p_0_1->Add(h_vector_norm_p_p[1]);
   h_p_p_0_1->SetFillColor(kAzure + 10);
@@ -241,9 +282,11 @@ int antideuteron_analyse(bool do_print = 0) {
   gPad->RedrawAxis("G");
 
   // aggiungi la legenda
-  TLegend *p_p_stack_legend = new TLegend(.12, .1, .42, .2);
-  p_p_stack_legend->AddEntry(h_p_p_0_1, "#bar{p}+#bar{p} to #pi^{-}+#pi^{0}+#bar{D}", "f");
-  p_p_stack_legend->AddEntry(h_p_p_0, "#bar{p}+#bar{p} to #pi^{-}+#bar{D}", "f");
+  TLegend *p_p_stack_legend = new TLegend(.14, .1, .44, .2);
+  p_p_stack_legend->AddEntry(h_p_p_0_1,
+                             "#bar{p}+#bar{p} to #pi^{-}+#pi^{0}+#bar{D}", "f");
+  p_p_stack_legend->AddEntry(h_p_p_0, "#bar{p}+#bar{p} to #pi^{-}+#bar{D}",
+                             "f");
   p_p_stack_legend->Draw("Same");
 
   ////////////////////////////////////////////////////////////////////////////
@@ -277,7 +320,8 @@ int antideuteron_analyse(bool do_print = 0) {
   // disegna gli istogrammi
   h_vector_n_n[0]->SetLineColor(kGreen + 3);
   h_vector_n_n[0]->SetMarkerColor(kGreen + 3);
-  h_vector_n_n[0]->SetTitle("Antideuteron #it{p}_{t} distribution from #bar{n}+#bar{n}");
+  h_vector_n_n[0]->SetTitle(
+      "Antideuteron #it{p}_{t} distribution from #bar{n}+#bar{n}");
   h_vector_n_n[1]->SetLineColor(kSpring - 8);
   h_vector_n_n[1]->SetMarkerColor(kSpring - 8);
 
@@ -285,9 +329,11 @@ int antideuteron_analyse(bool do_print = 0) {
   h_vector_n_n[1]->Draw("e1,p,same");
 
   // aggiungi la legenda
-  TLegend *n_n_legend = new TLegend(.62, .8, .92, .9);
-  n_n_legend->AddEntry(h_vector_n_n[0], "#bar{n}+#bar{n} to #pi^{+}+#bar{D}", "pe");         //
-  n_n_legend->AddEntry(h_vector_n_n[1], "#bar{n}+#bar{n} to #pi^{+}+#pi^{0}+#bar{D}", "pe"); //
+  TLegend *n_n_legend = new TLegend(.64, .8, .94, .9);
+  n_n_legend->AddEntry(h_vector_n_n[0], "#bar{n}+#bar{n} to #pi^{+}+#bar{D}",
+                       "pe"); //
+  n_n_legend->AddEntry(h_vector_n_n[1],
+                       "#bar{n}+#bar{n} to #pi^{+}+#pi^{0}+#bar{D}", "pe"); //
   n_n_legend->Draw("Same");
 
   //////////////////////////////////////////////////////////////////////////
@@ -314,7 +360,10 @@ int antideuteron_analyse(bool do_print = 0) {
   TH1D *h_n_n_0 = new TH1D(*h_vector_norm_n_n[0]);
   h_n_n_0->SetFillColor(kGreen + 2);
   h_n_n_0->SetLineColor(kBlack);
-  h_n_n_0->SetTitle("Antideuteron relative #it{p}_{t} distribution from #bar{n}+#bar{n}");
+  h_n_n_0->SetTitle(
+      "Antideuteron relative #it{p}_{t} distribution from "
+      "#bar{n}+#bar{n};Transverse momentum #it{p}_{t} [GeV/c];Ratio value");
+  h_n_n_0->SetTitleOffset(1.3);
   TH1D *h_n_n_0_1 = new TH1D(*h_n_n_0);
   h_n_n_0_1->Add(h_vector_norm_n_n[1]);
   h_n_n_0_1->SetFillColor(kGreen);
@@ -327,9 +376,11 @@ int antideuteron_analyse(bool do_print = 0) {
   gPad->RedrawAxis("G");
 
   // aggiungi la legenda
-  TLegend *n_n_stack_legend = new TLegend(.12, .1, .42, .2);
-  n_n_stack_legend->AddEntry(h_n_n_0_1, "#bar{n}+#bar{n} to #pi^{+}+#pi^{0}+#bar{D}", "f");
-  n_n_stack_legend->AddEntry(h_n_n_0, "#bar{n}+#bar{n} to #pi^{+}+#bar{D}", "f");
+  TLegend *n_n_stack_legend = new TLegend(.14, .1, .44, .2);
+  n_n_stack_legend->AddEntry(h_n_n_0_1,
+                             "#bar{n}+#bar{n} to #pi^{+}+#pi^{0}+#bar{D}", "f");
+  n_n_stack_legend->AddEntry(h_n_n_0, "#bar{n}+#bar{n} to #pi^{+}+#bar{D}",
+                             "f");
   n_n_stack_legend->Draw("Same");
 
   //////////////////////////////////////////////////////////////////////////
@@ -356,7 +407,12 @@ int antideuteron_analyse(bool do_print = 0) {
   // disegna gli istogrammi
   h_vector_ov[0]->SetLineColor(kRed);
   h_vector_ov[0]->SetMarkerColor(kRed);
-  h_vector_ov[0]->SetTitle("Antideuteron #it{p}_{t} distribution");
+  h_vector_ov[0]->SetTitle(
+      "Antideuteron #it{p}_{t} distribution;Transverse momentum #it{p}_{t} "
+      "[GeV/c];#frac{1}{#it{N}_{events}} "
+      "#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} [(GeV/c)^{-1}]");
+  h_vector_ov[0]->SetTitleOffset(1.3);
+  h_vector_ov[0]->SetTitleOffset(1.76, "Y");
   h_vector_ov[2]->SetLineColor(kGreen + 1);
   h_vector_ov[2]->SetMarkerColor(kGreen + 1);
   h_vector_ov[1]->SetLineColor(kBlue);
@@ -367,7 +423,7 @@ int antideuteron_analyse(bool do_print = 0) {
   h_vector_ov[1]->Draw("e1,p,same");
 
   // aggiungi la legenda
-  TLegend *ov_legend = new TLegend(.62, .75, .92, .9);
+  TLegend *ov_legend = new TLegend(.14, .1, .44, .25);
   ov_legend->AddEntry(h_vector_ov[0], "from #bar{p}+#bar{n}", "pe");
   ov_legend->AddEntry(h_vector_ov[2], "from #bar{n}+#bar{n}", "pe");
   ov_legend->AddEntry(h_vector_ov[1], "from #bar{p}+#bar{p}", "pe");
@@ -401,7 +457,10 @@ int antideuteron_analyse(bool do_print = 0) {
   TH1D *h_ov_0 = new TH1D(*h_vector_norm_ov[0]);
   h_ov_0->SetFillColor(kRed);
   h_ov_0->SetLineColor(kBlack);
-  h_ov_0->SetTitle("Antideuteron relative #it{p}_{t} production distribution");
+  h_ov_0->SetTitle(
+      "Antideuteron relative #it{p}_{t} production distribution;Transverse "
+      "momentum #it{p}_{t} [GeV/c];Ratio value");
+  h_ov_0->SetTitleOffset(1.3);
   TH1D *h_ov_0_2 = new TH1D(*h_ov_0);
   h_ov_0_2->Add(h_vector_norm_ov[2]);
   h_ov_0_2->SetFillColor(kGreen);
@@ -419,7 +478,7 @@ int antideuteron_analyse(bool do_print = 0) {
   gPad->RedrawAxis("G");
 
   // aggiungi la legenda
-  TLegend *ov_stack_legend = new TLegend(.12, .1, .42, .25);
+  TLegend *ov_stack_legend = new TLegend(.14, .1, .44, .25);
   ov_stack_legend->AddEntry(h_ov_0_1_2, "from #bar{p}+#bar{p}", "f");
   ov_stack_legend->AddEntry(h_ov_0_2, "from #bar{n}+#bar{n}", "f");
   ov_stack_legend->AddEntry(h_ov_0, "from #bar{p}+#bar{n}", "f");
