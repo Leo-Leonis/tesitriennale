@@ -5,6 +5,7 @@
 #include "TGraph.h"
 #include "TGraphErrors.h"
 #include "TLegend.h"
+#include "TMarker.h"
 #include "TMath.h"
 #include "TROOT.h"
 #include "TStyle.h"
@@ -14,9 +15,6 @@
 
 // Builds a graph with errors, displays it and saves it as an image
 void setStyle() {
-  gROOT->SetStyle("Plain");
-  gStyle->SetOptStat(1111);
-  gStyle->SetOptFit(111);
   gStyle->SetPalette(57);
   gStyle->SetOptTitle(0);
 }
@@ -25,14 +23,11 @@ double_t custom_exp(double_t *x, double_t *p) {
   return TMath::Exp(-p[0] * (x[0] - p[1])) + p[2];
 }
 
-void fit_norm(int fit_id = -1, int data_id = -1) {
+double_t custom_1_x(double_t *x, double_t *p) {
+  return p[0] / TMath::Power(x[0] - p[1], p[2]);
+}
 
-  if (fit_id == -1) {
-    std::cout << "LEO_ERROR: please specify the intended fit (\"0\" linear, "
-                 "\"1\" exponential)"
-              << '\n';
-    return;
-  }
+void fit_norm(int data_id = -1) {
 
   setStyle();
   // The values and the errors on the X and Y axis
@@ -63,72 +58,101 @@ void fit_norm(int fit_id = -1, int data_id = -1) {
       "Coefficiente di attrito legno;tan#Phi; #Deltax/cos#Phi (cm)");
   graph->GetYaxis()->SetRangeUser(1, 16); // range asse y
   // Cosmetics
-  graph->SetMarkerStyle(kOpenCircle);
-  graph->SetMarkerColor(kBlue);
-  graph->SetLineColor(kBlue);
+  graph->SetMarkerStyle(kFullSquare);
+  graph->SetMarkerColor(kAzure + 2);
+  graph->SetLineWidth(0);
 
   // The canvas on which we'll draw the graph
-  TCanvas *mycanvas = new TCanvas();
+  TCanvas *mycanvas = new TCanvas("mycanvas", "", 1080, 720);
+  mycanvas->SetGridx();
+  mycanvas->SetGridy();
+  mycanvas->DrawFrame(0, 1, 14, 4, ";#sqrt{s} [TeV];1/#sigma_{0} [barn^{-1}]");
 
-  TF1 *f;
-  // Define a linear function
-  if (fit_id == 0) {
-    f = new TF1("Linear law", "([0]*x) + [1]", 0.2, 14);
-    f->SetLineColor(kRed);
-    f->SetLineStyle(2);
-    f->SetParName(0, "m");
-    f->SetParName(1, "q");
-    graph->Fit(f);
-  } else if (fit_id == 1) {
-    f = new TF1("Exponential law", custom_exp, 0.2, 14, 3);
-    f->SetLineColor(kRed);
-    f->SetLineStyle(2);
-    graph->Fit(f);
-  } else {
-    std::cout << "LEO_ERROR: invalid fit id code (allowed: 0,1)" << '\n';
-    return;
-  }
+  TF1 *f1;
+  TF1 *f2;
 
-  // Draw the graph !
-  graph->Draw("APE");
+  f1 = new TF1("Linear law", "([0]*x) + [1]", 0, 14);
+  f1->SetLineColor(kGreen);
+  f1->SetMarkerColor(kGreen);
+  f1->SetParName(0, "m");
+  f1->SetParName(1, "q");
+  graph->Fit(f1);
 
-  std::cout << "The Chisquare of the fit = " << graph->Chisquare(f)
-            << std::endl;
-  std::cout << "From function chi " << f->GetChisquare() << std::endl;
-  std::cout << "From function ndf " << f->GetNDF() << std::endl;
+  f2 = new TF1("1/x law", custom_1_x, 0, 14, 3);
+  f2->SetLineColor(kRed);
+  f2->SetMarkerColor(kRed);
+  f2->SetParameters(57, -15, 1);
+  f2->FixParameter(1, 0);
+  graph->Fit(f2, "n");
+
+  // Draw the graph
+  graph->Draw("pe,same");
+  f1->Draw("l,same");
+  f2->Draw("l,same");
 
   // Build and Draw a legend
-  TLegend *leg = new TLegend(.1, .7, .3, .9);
+  TLegend *leg = new TLegend(.1, .1, .3, .28);
   leg->SetFillColor(0);
   graph->SetFillColor(0);
-  leg->AddEntry(graph, "Punti Sperimentali");
-  leg->AddEntry(f, "Fit Lineare");
+  leg->AddEntry(graph, "ALICE");
+  leg->AddEntry(f1, "linear fit");
+  leg->AddEntry(f2, "1/x fit");
   leg->Draw("Same");
 
-  if (fit_id == 0) {
-    double_t m = f->GetParameter(0);
-    double_t q = f->GetParameter(1);
-    std::cout << "pendenza = " << m << '\n'
-              << "intercetta = " << q << '\n'
-              << '\n';
+  double_t value_from_table_lin = -1;
+  double_t value_from_table_1ox = -1;
 
-    std::cout << "1/sigma = " << (m * 13) + q << " 1/barn" << '\n';
-    // deuterone -> 1/sigma = 1.7136 1/barn
-    // antideut  -> 1/sigma = 1.56872 1/barn
-  } else if (fit_id == 1) {
-    double_t p0 = f->GetParameter(0);
-    double_t p1 = f->GetParameter(1);
-    double_t p2 = f->GetParameter(2);
-    std::cout << "p0 = " << p0 << '\n'
-              << "p1 = " << p1 << '\n'
-              << "p2 = " << p2 << '\n'
-              << '\n';
+  double_t const m = f1->GetParameter(0);
+  double_t const q = f1->GetParameter(1);
+  std::cout << "pendenza = " << m << '\n'
+            << "intercetta = " << q << '\n'
+            << '\n';
 
-    std::cout << "1/sigma = " << TMath::Exp(-p0 * (13 - p1)) + p2 << " 1/barn"
-              << '\n';
-    // deuterone -> 1/sigma = 2.60385 1/barn
-    // antideut  -> 1/sigma = 2.55994 1/barn
-  } else {
-    std::cout << "LEO_POETRY: ma com'è potuto succedere?" << '\n';
+  value_from_table_lin = q + (m * 13.);
+
+  double_t const p0 = f2->GetParameter(0);
+  double_t const p1 = f2->GetParameter(1);
+  double_t const p2 = f2->GetParameter(2);
+
+  value_from_table_1ox = p0 / TMath::Power(13. - p1, p2);
+
+  std::cout << "1/sigma = " << value_from_table_1ox << " 1/barn" << '\n';
+
+  // vertical dashed line
+  double_t const expx_v[2] = {13., 13.};
+  double_t const expy_v[2] = {0., 4.};
+  TGraph *dashed_v_line = new TGraph(2, expx_v, expy_v);
+  dashed_v_line->SetLineStyle(7);
+  dashed_v_line->SetLineWidth(2);
+  dashed_v_line->SetLineColor(kGray + 1);
+  dashed_v_line->Draw("l,same");
+
+  // horizontal dashed line
+  double_t const expx_h[2] = {0., 14.};
+  double_t const expy_h[2] = {2.63, 2.63};
+  TGraph *dashed_h_line = new TGraph(2, expx_h, expy_h);
+  dashed_h_line->SetLineStyle(7);
+  dashed_h_line->SetLineWidth(2);
+  dashed_h_line->SetLineColor(kGray + 1);
+  dashed_h_line->Draw("l,same");
+
+  graph->Draw("pe,same");
+
+  std::vector<TMarker *> mark_vect(4);
+  mark_vect[0] = new TMarker(13, 2.63, 1);                 // default
+  mark_vect[1] = new TMarker(13, value_from_table_lin, 1); // fit lin
+  mark_vect[2] = new TMarker(13, value_from_table_1ox, 1); // fit 1ox
+  mark_vect[3] = new TMarker(13, 2.2915107, 1);            // ottimizzato
+
+  for (TMarker *marker : mark_vect) {
+    marker->SetMarkerStyle(kFullCircle);
+    marker->SetMarkerSize(1.3);
+    marker->Draw("same");
   }
+  mark_vect[0]->SetMarkerColor(kBlack);
+  mark_vect[1]->SetMarkerColor(kGreen + 2);
+  mark_vect[2]->SetMarkerColor(kRed + 2);
+  mark_vect[3]->SetMarkerColor(kOrange);
+
+  std::cout << "norm: " << 1000. / (3.179165 * value_from_table_1ox) << '\n';
 }
