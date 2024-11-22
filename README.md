@@ -1,4 +1,4 @@
 # Funzionamento
-Compilando ed eseguendo il file `main142.cpp` si producono i file `.root` delle simulazioni. 
-I file `main142_ON_1ex.root` e `main142_OFF_1ex.root` indicano le simulazioni con e senza la produzione di deuterone rispettivamente.
-Nel file `analyse.cpp` si mettono a confronto i file `.root` delle simulazioni e quelli di CERN.
+Compilando ed eseguendo il file `main142.cpp` in `root` si producono i file `.root` delle simulazioni, i quali vanno rinominati manualmente in `simu_data/main142_X_1e7.cpp`, sostituendo a "X" il caso interessato (A, B, D, E o F).
+
+Nel file `analyse.cpp` si mettono a confronto i file `.root` delle simulazioni e quelli di CERN. Nel file `deuteron_analyse.cpp` (`antideuteron_analyse.cpp`) invece si osservano i vari canali di produzione dei deuteroni (antideuteroni). In `fit_norm.cpp` si va a fittare il parametro `norm` per le simulazione. Infine il file `ratio_CXS.cpp` va a confrontare il modello di coalescenza (caso E) con uno dei quattro modelli di sez. d'urto efficace (A, B, D o F)
