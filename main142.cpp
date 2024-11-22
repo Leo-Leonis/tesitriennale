@@ -87,43 +87,49 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
       0.65,  0.7,  0.8,   0.9,  1.0,   1.1,  1.2,  1.4,  1.6,  1.8,  2,    2.2,
       2.6,   3,    3.4,   3.8,  4,     4.5,  5,    5.5,  6,    6.5,  7,    8};
 
-  TH1D *h_pt_proton =
-      new TH1D("h_pt_proton",
-               "Proton #it{p}_{t} distribution;Transverse "
-               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
-               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
-               n_bins_pp, bin_edges_pp);
-  TH1D *h_pt_antiproton =
-      new TH1D("h_pt_antiproton",
-               "Antiproton #it{p}_{t} distribution;Transverse "
-               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
-               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
-               n_bins_pp, bin_edges_pp);
-  TH1D *h_pt_tot_pp =
-      new TH1D("h_pt_tot_pp",
-               "p+#bar{p} #it{p}_{t} distribution;Transverse "
-               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
-               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
-               n_bins_pp, bin_edges_pp);
+  TH1D *h_pt_proton = new TH1D(
+      "h_pt_proton",
+      "Proton #it{p}_{t} distribution;Transverse "
+      "momentum #it{p}_{t} "
+      "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
+      "[(GeV/c)^{-1}];",
+      n_bins_pp, bin_edges_pp);
+  TH1D *h_pt_antiproton = new TH1D(
+      "h_pt_antiproton",
+      "Antiproton #it{p}_{t} distribution;Transverse "
+      "momentum #it{p}_{t} "
+      "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
+      "[(GeV/c)^{-1}];",
+      n_bins_pp, bin_edges_pp);
+  TH1D *h_pt_tot_pp = new TH1D(
+      "h_pt_tot_pp",
+      "p+#bar{p} #it{p}_{t} distribution;Transverse "
+      "momentum #it{p}_{t} "
+      "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
+      "[(GeV/c)^{-1}];",
+      n_bins_pp, bin_edges_pp);
 
-  TH1D *h_pt_deuteron =
-      new TH1D("h_pt_deuteron",
-               "Deuteron #it{p}_{t} distribution;Transverse "
-               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
-               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
-               n_bins_DD, bin_edges_DD);
-  TH1D *h_pt_antideuteron =
-      new TH1D("h_pt_antideuteron",
-               "Antideuteron #it{p}_{t} distribution;Transverse "
-               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
-               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
-               n_bins_DD, bin_edges_DD);
-  TH1D *h_pt_tot_DD =
-      new TH1D("h_pt_tot_DD",
-               "D+#bar{D} #it{p}_{t} distribution;Transverse "
-               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
-               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
-               n_bins_DD, bin_edges_DD);
+  TH1D *h_pt_deuteron = new TH1D(
+      "h_pt_deuteron",
+      "Deuteron #it{p}_{t} distribution;Transverse "
+      "momentum #it{p}_{t} "
+      "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
+      "[(GeV/c)^{-1}];",
+      n_bins_DD, bin_edges_DD);
+  TH1D *h_pt_antideuteron = new TH1D(
+      "h_pt_antideuteron",
+      "Antideuteron #it{p}_{t} distribution;Transverse "
+      "momentum #it{p}_{t} "
+      "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
+      "[(GeV/c)^{-1}];",
+      n_bins_DD, bin_edges_DD);
+  TH1D *h_pt_tot_DD = new TH1D(
+      "h_pt_tot_DD",
+      "D+#bar{D} #it{p}_{t} distribution;Transverse "
+      "momentum #it{p}_{t} "
+      "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
+      "[(GeV/c)^{-1}];",
+      n_bins_DD, bin_edges_DD);
 
   std::vector<TH1D *> h_main_vector;
   h_main_vector.push_back(h_pt_proton);
@@ -136,39 +142,44 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
   /////////////////////////////////////////////////////////////////////////////
 
   // distribuzione di D prodotti da p+n________________________________________
-  TH1D *h_pt_deuteron_in_p_n =
-      new TH1D("h_pt_deuteron_in_p_n",
-               "Deuteron #it{p}_{t} distribution from p+n;Transverse "
-               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
-               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
-               n_bins_DD, bin_edges_DD);
+  TH1D *h_pt_deuteron_in_p_n = new TH1D(
+      "h_pt_deuteron_in_p_n",
+      "Deuteron #it{p}_{t} distribution from p+n;Transverse "
+      "momentum #it{p}_{t} "
+      "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
+      "[(GeV/c)^{-1}];",
+      n_bins_DD, bin_edges_DD);
 
   //// distribuzione di D prodotti da p+n a g+D
-  TH1D *h_pt_deuteron_out_g_D =
-      new TH1D("h_pt_deuteron_out_g_D",
-               "D #it{p}_{t} distribution from p+n to #gamma+D;Transverse "
-               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
-               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
-               n_bins_DD, bin_edges_DD);
+  TH1D *h_pt_deuteron_out_g_D = new TH1D(
+      "h_pt_deuteron_out_g_D",
+      "D #it{p}_{t} distribution from p+n to #gamma+D;Transverse "
+      "momentum #it{p}_{t} "
+      "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
+      "[(GeV/c)^{-1}];",
+      n_bins_DD, bin_edges_DD);
   //// distribuzione di D prodotti da p+n a pi0+D
-  TH1D *h_pt_deuteron_out_pi0_D =
-      new TH1D("h_pt_deuteron_out_pi0_D",
-               "D #it{p}_{t} distribution from p+n to #pi^{0}+D;Transverse "
-               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
-               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
-               n_bins_DD, bin_edges_DD);
+  TH1D *h_pt_deuteron_out_pi0_D = new TH1D(
+      "h_pt_deuteron_out_pi0_D",
+      "D #it{p}_{t} distribution from p+n to #pi^{0}+D;Transverse "
+      "momentum #it{p}_{t} "
+      "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
+      "[(GeV/c)^{-1}];",
+      n_bins_DD, bin_edges_DD);
   //// distribuzione di D prodotti da p+n a piP+piM+D
   TH1D *h_pt_deuteron_out_piP_piM_D = new TH1D(
       "h_pt_deuteron_out_piP_piM_D",
       "D #it{p}_{t} distribution from p+n to #pi^{+}+#pi^{-}+D;Transverse "
-      "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} #frac{d^{2}N}{dp_{t}dy} "
+      "momentum #it{p}_{t} "
+      "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
       "[(GeV/c)^{-1}];",
       n_bins_DD, bin_edges_DD);
   //// distribuzione di D prodotti da p+n a pi0+pi0+D
   TH1D *h_pt_deuteron_out_pi0_pi0_D = new TH1D(
       "h_pt_deuteron_out_pi0_pi0_D",
       "D #it{p}_{t} distribution from p+n to #pi^{0}+#pi^{0}+D;Transverse "
-      "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} #frac{d^{2}N}{dp_{t}dy} "
+      "momentum #it{p}_{t} "
+      "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
       "[(GeV/c)^{-1}];",
       n_bins_DD, bin_edges_DD);
 
@@ -180,25 +191,28 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
   h_vector_deuteron.push_back(h_pt_deuteron_out_pi0_pi0_D);
 
   // distribuzione di D prodotti da p+p________________________________________
-  TH1D *h_pt_deuteron_in_p_p =
-      new TH1D("h_pt_deuteron_in_p_p",
-               "Deuteron #it{p}_{t} distribution from p+p;Transverse "
-               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
-               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
-               n_bins_DD, bin_edges_DD);
+  TH1D *h_pt_deuteron_in_p_p = new TH1D(
+      "h_pt_deuteron_in_p_p",
+      "Deuteron #it{p}_{t} distribution from p+p;Transverse "
+      "momentum #it{p}_{t} "
+      "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
+      "[(GeV/c)^{-1}];",
+      n_bins_DD, bin_edges_DD);
 
   //// distribuzione di D prodotti da p+p a piP+D
-  TH1D *h_pt_deuteron_out_piP_D =
-      new TH1D("h_pt_deuteron_out_piP_D",
-               "D #it{p}_{t} distribution from p+p to #pi^{+}+D;Transverse "
-               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
-               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
-               n_bins_DD, bin_edges_DD);
+  TH1D *h_pt_deuteron_out_piP_D = new TH1D(
+      "h_pt_deuteron_out_piP_D",
+      "D #it{p}_{t} distribution from p+p to #pi^{+}+D;Transverse "
+      "momentum #it{p}_{t} "
+      "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
+      "[(GeV/c)^{-1}];",
+      n_bins_DD, bin_edges_DD);
   //// distribuzione di D prodotti da p+p a piP+pi0+D
   TH1D *h_pt_deuteron_out_piP_pi0_D = new TH1D(
       "h_pt_deuteron_out_piP_pi0_D",
       "D #it{p}_{t} distribution from p+p to #pi^{+}+#pi^{0}+D;Transverse "
-      "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} #frac{d^{2}N}{dp_{t}dy} "
+      "momentum #it{p}_{t} "
+      "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
       "[(GeV/c)^{-1}];",
       n_bins_DD, bin_edges_DD);
 
@@ -207,25 +221,28 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
   h_vector_deuteron.push_back(h_pt_deuteron_out_piP_pi0_D);
 
   // distribuzione di D prodotti da n+n________________________________________
-  TH1D *h_pt_deuteron_in_n_n =
-      new TH1D("h_pt_deuteron_in_n_n",
-               "Deuteron #it{p}_{t} distribution from n+n;Transverse "
-               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
-               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
-               n_bins_DD, bin_edges_DD);
+  TH1D *h_pt_deuteron_in_n_n = new TH1D(
+      "h_pt_deuteron_in_n_n",
+      "Deuteron #it{p}_{t} distribution from n+n;Transverse "
+      "momentum #it{p}_{t} "
+      "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
+      "[(GeV/c)^{-1}];",
+      n_bins_DD, bin_edges_DD);
 
   //// distribuzione di D prodotti da n+n a piM+D
-  TH1D *h_pt_deuteron_out_piM_D =
-      new TH1D("h_pt_deuteron_out_piM_D",
-               "D #it{p}_{t} distribution from p+p to #pi^{-}+D;Transverse "
-               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
-               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
-               n_bins_DD, bin_edges_DD);
+  TH1D *h_pt_deuteron_out_piM_D = new TH1D(
+      "h_pt_deuteron_out_piM_D",
+      "D #it{p}_{t} distribution from p+p to #pi^{-}+D;Transverse "
+      "momentum #it{p}_{t} "
+      "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
+      "[(GeV/c)^{-1}];",
+      n_bins_DD, bin_edges_DD);
   //// distribuzione di D prodotti da n+n a piM+pi0+D
   TH1D *h_pt_deuteron_out_piM_pi0_D = new TH1D(
       "h_pt_deuteron_out_piM_pi0_D",
       "D #it{p}_{t} distribution from p+p to #pi^{-}+#pi^{0}+D;Transverse "
-      "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} #frac{d^{2}N}{dp_{t}dy} "
+      "momentum #it{p}_{t} "
+      "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
       "[(GeV/c)^{-1}];",
       n_bins_DD, bin_edges_DD);
 
@@ -239,39 +256,44 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
   TH1D *h_pt_antideuteron_in_p_n = new TH1D(
       "h_pt_antideuteron_in_p_n",
       "Antideuteron #it{p}_{t} distribution from #bar{p}+#bar{n};Transverse "
-      "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} #frac{d^{2}N}{dp_{t}dy} "
+      "momentum #it{p}_{t} "
+      "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
       "[(GeV/c)^{-1}];",
       n_bins_DD, bin_edges_DD);
 
   //// distribuzione di D- prodotti da p+n a g+D-
-  TH1D *h_pt_antideuteron_out_g_D =
-      new TH1D("h_pt_antideuteron_out_g_D",
-               "#bar{D} #it{p}_{t} distribution from #bar{p}+#bar{n} to "
-               "#gamma+#bar{D};Transverse "
-               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
-               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
-               n_bins_DD, bin_edges_DD);
+  TH1D *h_pt_antideuteron_out_g_D = new TH1D(
+      "h_pt_antideuteron_out_g_D",
+      "#bar{D} #it{p}_{t} distribution from #bar{p}+#bar{n} to "
+      "#gamma+#bar{D};Transverse "
+      "momentum #it{p}_{t} "
+      "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
+      "[(GeV/c)^{-1}];",
+      n_bins_DD, bin_edges_DD);
   //// distribuzione di D- prodotti da p+n a pi0+D-
-  TH1D *h_pt_antideuteron_out_pi0_D =
-      new TH1D("h_pt_antideuteron_out_pi0_D",
-               "#bar{D} #it{p}_{t} distribution from #bar{p}+#bar{n} to "
-               "#pi^{0}+#bar{D};Transverse "
-               "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} "
-               "#frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
-               n_bins_DD, bin_edges_DD);
+  TH1D *h_pt_antideuteron_out_pi0_D = new TH1D(
+      "h_pt_antideuteron_out_pi0_D",
+      "#bar{D} #it{p}_{t} distribution from #bar{p}+#bar{n} to "
+      "#pi^{0}+#bar{D};Transverse "
+      "momentum #it{p}_{t} "
+      "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
+      "[(GeV/c)^{-1}];",
+      n_bins_DD, bin_edges_DD);
   //// distribuzione di D- prodotti da p+n a piP+piM+D-
   TH1D *h_pt_antideuteron_out_piP_piM_D = new TH1D(
       "h_pt_antideuteron_out_piP_piM_D",
       "#bar{D} #it{p}_{t} distribution from #bar{p}+#bar{n} to "
       "#pi^{+}+#pi^{-}+#bar{D};Transverse momentum #it{p}_{t} "
-      "[GeV/c];#frac{1}{N_{events} #frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
+      "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
+      "[(GeV/c)^{-1}];",
       n_bins_DD, bin_edges_DD);
   //// distribuzione di D- prodotti da p+n a pi0+pi0+D-
   TH1D *h_pt_antideuteron_out_pi0_pi0_D = new TH1D(
       "h_pt_antideuteron_out_pi0_pi0_D",
       "#bar{D} #it{p}_{t} distribution from #bar{p}+#bar{n} to "
       "#pi^{0}+#pi^{0}+#bar{D};Transverse momentum #it{p}_{t} "
-      "[GeV/c];#frac{1}{N_{events} #frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
+      "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
+      "[(GeV/c)^{-1}];",
       n_bins_DD, bin_edges_DD);
 
   std::vector<TH1D *> h_vector_antideuteron;
@@ -285,24 +307,27 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
   TH1D *h_pt_antideuteron_in_p_p = new TH1D(
       "h_pt_antideuteron_in_p_p",
       "Antideuteron #it{p}_{t} distribution from #bar{p}+#bar{p};Transverse "
-      "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} #frac{d^{2}N}{dp_{t}dy} "
+      "momentum #it{p}_{t} "
+      "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
       "[(GeV/c)^{-1}];",
       n_bins_DD, bin_edges_DD);
 
   //// distribuzione di D- prodotti da p+p a piM+D-
-  TH1D *h_pt_antideuteron_out_piM_D = new TH1D(
-      "h_pt_antideuteron_out_piM_D",
-      "#bar{D} #it{p}_{t} distribution from #bar{p}+#bar{p} to "
-      "#pi^{-}+#bar{D};Transverse momentum #it{p}_{t} "
-      "[GeV/c];#frac{1}{N_{events} #frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
-      n_bins_DD, bin_edges_DD);
+  TH1D *h_pt_antideuteron_out_piM_D =
+      new TH1D("h_pt_antideuteron_out_piM_D",
+               "#bar{D} #it{p}_{t} distribution from #bar{p}+#bar{p} to "
+               "#pi^{-}+#bar{D};#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#"
+               "it{p}_{t}d#it{y}} "
+               "[(GeV/c)^{-1}];",
+               n_bins_DD, bin_edges_DD);
   //// distribuzione di D- prodotti da p+p a piM+pi0+D-
-  TH1D *h_pt_antideuteron_out_pi0_piM_D = new TH1D(
-      "h_pt_antideuteron_out_pi0_piM_D",
-      "#bar{D} #it{p}_{t} distribution from #bar{p}+#bar{p} to "
-      "#pi^{-}+#pi^{0}+#bar{D};Transverse momentum #it{p}_{t} "
-      "[GeV/c];#frac{1}{N_{events} #frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
-      n_bins_DD, bin_edges_DD);
+  TH1D *h_pt_antideuteron_out_pi0_piM_D =
+      new TH1D("h_pt_antideuteron_out_pi0_piM_D",
+               "#bar{D} #it{p}_{t} distribution from #bar{p}+#bar{p} to "
+               "#pi^{-}+#pi^{0}+#bar{D};Transverse momentum #it{p}_{t} "
+               "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#"
+               "it{p}_{t}d#it{y}} [(GeV/c)^{-1}];",
+               n_bins_DD, bin_edges_DD);
 
   h_vector_antideuteron.push_back(h_pt_antideuteron_in_p_p);
   h_vector_antideuteron.push_back(h_pt_antideuteron_out_piM_D);
@@ -312,35 +337,31 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
   TH1D *h_pt_antideuteron_in_n_n = new TH1D(
       "h_pt_antideuteron_in_n_n",
       "Antideuteron #it{p}_{t} distribution from #bar{n}+#bar{n};Transverse "
-      "momentum #it{p}_{t} [GeV/c];#frac{1}{N_{events} #frac{d^{2}N}{dp_{t}dy} "
-      "[(GeV/c)^{-1}];",
+      "momentum #it{p}_{t} "
+      "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#"
+      "it{p}_{t}d#it{y}} [(GeV/c)^{-1}];",
       n_bins_DD, bin_edges_DD);
 
   //// distribuzione di D- prodotti da n+n a piP+D-
-  TH1D *h_pt_antideuteron_out_piP_D = new TH1D(
-      "h_pt_antideuteron_out_piP_D",
-      "#bar{D} #it{p}_{t} distribution from #bar{n}+#bar{n} to "
-      "#pi^{+}+#bar{D};Transverse momentum #it{p}_{t} "
-      "[GeV/c];#frac{1}{N_{events} #frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
-      n_bins_DD, bin_edges_DD);
+  TH1D *h_pt_antideuteron_out_piP_D =
+      new TH1D("h_pt_antideuteron_out_piP_D",
+               "#bar{D} #it{p}_{t} distribution from #bar{n}+#bar{n} to "
+               "#pi^{+}+#bar{D};Transverse momentum #it{p}_{t} "
+               "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#"
+               "it{p}_{t}d#it{y}} [(GeV/c)^{-1}];",
+               n_bins_DD, bin_edges_DD);
   //// distribuzione di D- prodotti da n+n a piP+pi0+D-
-  TH1D *h_pt_antideuteron_out_piP_pi0_D = new TH1D(
-      "h_pt_antideuteron_out_piP_pi0_D",
-      "#bar{D} #it{p}_{t} distribution from #bar{n}+#bar{n} to "
-      "#pi^{+}+#pi^{0}+#bar{D};Transverse momentum #it{p}_{t} "
-      "[GeV/c];#frac{1}{N_{events} #frac{d^{2}N}{dp_{t}dy} [(GeV/c)^{-1}];",
-      n_bins_DD, bin_edges_DD);
+  TH1D *h_pt_antideuteron_out_piP_pi0_D =
+      new TH1D("h_pt_antideuteron_out_piP_pi0_D",
+               "#bar{D} #it{p}_{t} distribution from #bar{n}+#bar{n} to "
+               "#pi^{+}+#pi^{0}+#bar{D};Transverse momentum #it{p}_{t} "
+               "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#"
+               "it{p}_{t}d#it{y}} [(GeV/c)^{-1}];",
+               n_bins_DD, bin_edges_DD);
 
   h_vector_antideuteron.push_back(h_pt_antideuteron_in_n_n);
   h_vector_antideuteron.push_back(h_pt_antideuteron_out_piP_D);
   h_vector_antideuteron.push_back(h_pt_antideuteron_out_piP_pi0_D);
-
-  // vettori di puntatori di vettori di puntatori di tutti gli istogrammi
-  /*   std::vector<std::vector<TH1D *> *> all_histo_vector;
-    all_histo_vector.push_back(&h_main_vector);
-    all_histo_vector.push_back(&h_vector_deuteron);
-    all_histo_vector.push_back(&h_vector_deuteron);
-    all_histo_vector.push_back(&h_vector_deuteron); */
 
   // cronometro per monitorare il tempo rimanente
   TStopwatch stopwatch;
@@ -351,7 +372,6 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
   pythia.readString("Beams:eCM = 13000.");
   pythia.readString("Beams:idA =  2212");
   pythia.readString("Beams:idB =  2212");
-  // pythia.readString("Beams:eCM = 13600.");
   pythia.readString("Beams:frameType  = 1");
 
   pythia.readString("Random:setSeed = on");
@@ -367,13 +387,13 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
     pythia.readString("HadronLevel:DeuteronProduction = on");
 
     // norm = 1000 / (3.179165 * value_from_table)
-    // deuterone -> 1/sigma = 1.7136 1/barn
-    // antideut  -> 1/sigma = 1.56872 1/barn
-    // norm default = 119.6 [A]
-    // norm deuterone = 183.5597586 [B]
-    // norm antideut = 200.51252128 [C]
-    // norm fit lin [A,B] = 137.26665 [D] <- abbastanza soddisfacente
-    // norm fit = 1 [E] caso mod coalescenza
+
+    // norm default   		= 119.6 [A]
+    // norm deuterone			= 183.56 (183.5597586) [B]
+    // (norm antideut			= 200.51 (200.51252128) [C])
+    // norm fit di [A,B]	= 137.27 (137.26665) [D] <- migliore
+    // norm coalescenza		= 1 [E] mod coalescenza
+    // norm fit 1/x 			= 133.58 (133.581) [F]
     pythia.readString("DeuteronProduction:norm = 137.26665");
   } else {
     pythia.readString("HadronLevel:DeuteronProduction = off");
@@ -403,9 +423,6 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
   // array per contenere le pdg codes delle particelle prodotte da una rezione
   // con D
   std::array<int, 3> PDGarray;
-
-  /*   // un log che tiene conto dell'andamento della simulazione
-    Pythia8::ProgressLog logger(nevs); */
 
   double elapsed_time;         // Tempo reale trascorso
   double estimated_total_time; // Stima del tempo totale
@@ -460,18 +477,12 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
         PDGarray = {300, 300,
                     300}; // reset dell'array (300 perché non lo faccio
                           // corrispondere a nessuna particella)
-        /*  std::cout
-             <<
-         "\033[1;32mdeuteron!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\033[0m"
-             << '\n';*/
         h_pt_deuteron->Fill(pt);
 
         const auto &mother1 = event[p.mother1()];
         const int mom1id = mother1.id(); // pdg della mother1
-        /// std::cout << "mother1 id: " << mom1id << '\n';
         const auto &mother2 = event[p.mother2()];
         const int mom2id = mother2.id(); // pdg della mother2
-        /// std::cout << "mother2 id: " << mom2id << '\n';
 
         // vettore degli indici delle particelle figlie
         const auto &daughterlist = mother1.daughterList();
@@ -491,35 +502,13 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
                     << iEvent << ")" << '\n';
         }
 
-        /* std::cout << "daughterlist: (";
-        for (int i : daughterlist) {
-          std::cout << i << ',';
-        }
-        std::cout << ")" << '\n';
-
-        std::cout << "PDGdaughterlist: (";
-        for (int i : daughterlist) {
-          std::cout << event[i].id() << ',';
-        }
-        std::cout << ")" << '\n'; */
-
         if (size == 2 || size == 3) {
           for (int ip = 0; ip < size; ip++) {
             PDGarray[ip] = (event[daughterlist[ip]]).id();
           }
-          /* std::cout << "PDGarray before sorting: (";
-          for (int i : PDGarray) {
-            std::cout << i << ',';
-          }
-          std::cout << ")" << '\n'; */
 
           std::sort(PDGarray.begin(), PDGarray.end()); // riordina l'array
 
-          /* std::cout << "PDGarray after sorting: (";
-          for (int i : PDGarray) {
-            std::cout << i << ',';
-          }
-          std::cout << ")" << '\n'; */
         } else {
           std::cout << "\033[1;31mLEO_WARNING\033[0m: Daughter list size was "
                        "neither 2 or 3 (event: "
@@ -637,10 +626,6 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
       } break;          // fine deuterone
       case -1000010020: // antideuterone
       {
-        /*  std::cout
-             <<
-         "\033[1;32mantideuteron!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\033[0m"
-             << '\n';*/
         h_pt_antideuteron->Fill(pt);
 
         PDGarray = {-300, -300,
@@ -649,10 +634,8 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
 
         const auto &mother1 = event[p.mother1()];
         const int mom1id = mother1.id(); // pdg della mother1
-        /// std::cout << "mother1 id: " << mom1id << '\n';
         const auto &mother2 = event[p.mother2()];
         const int mom2id = mother2.id(); // pdg della mother2
-        /// std::cout << "mother2 id: " << mom2id << '\n';
 
         // vettore degli indici delle particelle figlie
         const auto &daughterlist = mother1.daughterList();
@@ -672,35 +655,13 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
                     << iEvent << ")" << '\n';
         }
 
-        /* std::cout << "daughterlist: (";x
-        for (int i : daughterlist) {
-          std::cout << i << ',';
-        }
-        std::cout << ")" << '\n';
-
-        std::cout << "PDGdaughterlist: (";
-        for (int i : daughterlist) {
-          std::cout << event[i].id() << ',';
-        }
-        std::cout << ")" << '\n'; */
-
         if (size == 2 || size == 3) {
           for (int ip = 0; ip < size; ip++) {
             PDGarray[ip] = (event[daughterlist[ip]]).id();
           }
-          /* std::cout << "PDGarray before sorting: (";
-          for (int i : PDGarray) {
-            std::cout << i << ',';
-          }
-          std::cout << ")" << '\n'; */
 
           std::sort(PDGarray.begin(), PDGarray.end()); // riordina l'array
 
-          /* std::cout << "PDGarray after sorting: (";
-          for (int i : PDGarray) {
-            std::cout << i << ',';
-          }
-          std::cout << ")" << '\n'; */
         } else {
           std::cout << "\033[1;31mLEO_WARNING\033[0m: Daughter list size was "
                        "neither 2 or 3 (event: "
@@ -826,7 +787,6 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
       showProgressBar(iEvent, nevs,
                       elapsed_time); // mostra la barra di progressione
     }
-    // logger(iEvent);
   } // fine simulazione
 
   // riempimento istogrammi totali dei protoni e dei deuteroni
@@ -836,7 +796,6 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
   // lambda da applicare a tutti gli istogrammi
   auto action_hist_lambda = [nevs](TH1D *hist) {
     if (hist) {
-      /// std::cout << "vector of hist" << '\n';
       // riscalaggio grafici
       hist->Scale(1. / nevs, "width");
       // salvataggio grafici
@@ -868,6 +827,6 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
                 action_hist_lambda);
   gDirectory->cd("..");
 
-  resultfile->Close(); // chiusura file (anche se lo fa in automatico)
+  resultfile->Close(); // chiusura file
   return 0;
 }

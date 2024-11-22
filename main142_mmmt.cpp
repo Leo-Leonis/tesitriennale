@@ -130,43 +130,38 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
 
   ROOT::TThreadedObject<TH1D> th_h_pt_proton(
       "h_pt_proton",
-      "Proton #it{p}_{t} distribution;Transverse momentum #it{p}_{t} "
+      "Proton #it{p}_{t} distribution;Transverse momentum #it{p}_{t} [GeV/c];"
       "#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
       "[(GeV/c)^{-1}];",
       n_bins_pp, bin_edges_pp);
   ROOT::TThreadedObject<TH1D> th_h_pt_antiproton(
       "h_pt_antiproton",
-      "Antiproton #it{p}_{t} distribution;Transverse "
-      "momentum #it{p}_{t} "
+      "Antiproton #it{p}_{t} distribution;Transverse momentum #it{p}_{t} "
       "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
       "[(GeV/c)^{-1}];",
       n_bins_pp, bin_edges_pp);
   ROOT::TThreadedObject<TH1D> th_h_pt_tot_pp(
       "h_pt_tot_pp",
-      "p+#bar{p} #it{p}_{t} distribution;Transverse "
-      "momentum #it{p}_{t} "
+      "p+#bar{p} #it{p}_{t} distribution;Transverse momentum #it{p}_{t} "
       "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
       "[(GeV/c)^{-1}];",
       n_bins_pp, bin_edges_pp);
 
   ROOT::TThreadedObject<TH1D> th_h_pt_deuteron(
       "h_pt_deuteron",
-      "Deuteron #it{p}_{t} distribution;Transverse "
-      "momentum #it{p}_{t} "
+      "Deuteron #it{p}_{t} distribution;Transverse momentum #it{p}_{t} "
       "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
       "[(GeV/c)^{-1}];",
       n_bins_DD, bin_edges_DD);
   ROOT::TThreadedObject<TH1D> th_h_pt_antideuteron(
       "h_pt_antideuteron",
-      "Antideuteron #it{p}_{t} distribution;Transverse "
-      "momentum #it{p}_{t} "
+      "Antideuteron #it{p}_{t} distribution;Transverse momentum #it{p}_{t} "
       "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
       "[(GeV/c)^{-1}];",
       n_bins_DD, bin_edges_DD);
   ROOT::TThreadedObject<TH1D> th_h_pt_tot_DD(
       "h_pt_tot_DD",
-      "D+#bar{D} #it{p}_{t} distribution;Transverse "
-      "momentum #it{p}_{t} "
+      "D+#bar{D} #it{p}_{t} distribution;Transverse momentum #it{p}_{t} "
       "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
       "[(GeV/c)^{-1}];",
       n_bins_DD, bin_edges_DD);
@@ -184,8 +179,8 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
   // distribuzione di D prodotti da p+n________________________________________
   ROOT::TThreadedObject<TH1D> th_h_pt_deuteron_in_p_n(
       "h_pt_deuteron_in_p_n",
-      "Deuteron #it{p}_{t} distribution from p+n;Transverse "
-      "momentum #it{p}_{t} "
+      "Deuteron #it{p}_{t} distribution from p+n;Transverse momentum "
+      "#it{p}_{t} "
       "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
       "[(GeV/c)^{-1}];",
       n_bins_DD, bin_edges_DD);
@@ -193,8 +188,8 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
   //// distribuzione di D prodotti da p+n a g+D
   ROOT::TThreadedObject<TH1D> th_h_pt_deuteron_out_g_D(
       "h_pt_deuteron_out_g_D",
-      "D #it{p}_{t} distribution from p+n to #gamma+D;Transverse "
-      "momentum #it{p}_{t} "
+      "D #it{p}_{t} distribution from p+n to #gamma+D;Transverse momentum "
+      "#it{p}_{t} "
       "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
       "[(GeV/c)^{-1}];",
       n_bins_DD, bin_edges_DD);
@@ -323,7 +318,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
   ROOT::TThreadedObject<TH1D> th_h_pt_antideuteron_out_piP_piM_D(
       "h_pt_antideuteron_out_piP_piM_D",
       "#bar{D} #it{p}_{t} distribution from #bar{p}+#bar{n} to "
-      "#pi^{+}+#pi^{-}+#bar{D};Transverse momentum #it{p}_{t} "
+      "#pi^{+}+#pi^{-}+#bar{D};Transverse momentum #it{p}_{t} [GeV/c];"
       "#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
       "[(GeV/c)^{-1}];",
       n_bins_DD, bin_edges_DD);
@@ -331,7 +326,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
   ROOT::TThreadedObject<TH1D> th_h_pt_antideuteron_out_pi0_pi0_D(
       "h_pt_antideuteron_out_pi0_pi0_D",
       "#bar{D} #it{p}_{t} distribution from #bar{p}+#bar{n} to "
-      "#pi^{0}+#pi^{0}+#bar{D};Transverse momentum #it{p}_{t} "
+      "#pi^{0}+#pi^{0}+#bar{D};Transverse momentum #it{p}_{t} [GeV/c];"
       "#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
       "[(GeV/c)^{-1}];",
       n_bins_DD, bin_edges_DD);
@@ -356,7 +351,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
   ROOT::TThreadedObject<TH1D> th_h_pt_antideuteron_out_piM_D(
       "h_pt_antideuteron_out_piM_D",
       "#bar{D} #it{p}_{t} distribution from #bar{p}+#bar{p} to "
-      "#pi^{-}+#bar{D};Transverse momentum #it{p}_{t} "
+      "#pi^{-}+#bar{D};Transverse momentum #it{p}_{t} [GeV/c];"
       "#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
       "[(GeV/c)^{-1}];",
       n_bins_DD, bin_edges_DD);
@@ -364,7 +359,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
   ROOT::TThreadedObject<TH1D> th_h_pt_antideuteron_out_pi0_piM_D(
       "h_pt_antideuteron_out_pi0_piM_D",
       "#bar{D} #it{p}_{t} distribution from #bar{p}+#bar{p} to "
-      "#pi^{-}+#pi^{0}+#bar{D};Transverse momentum #it{p}_{t} "
+      "#pi^{-}+#pi^{0}+#bar{D};Transverse momentum #it{p}_{t} [GeV/c];"
       "#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
       "[(GeV/c)^{-1}];",
       n_bins_DD, bin_edges_DD);
@@ -386,7 +381,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
   ROOT::TThreadedObject<TH1D> th_h_pt_antideuteron_out_piP_D(
       "h_pt_antideuteron_out_piP_D",
       "#bar{D} #it{p}_{t} distribution from #bar{n}+#bar{n} to "
-      "#pi^{+}+#bar{D};Transverse momentum #it{p}_{t} "
+      "#pi^{+}+#bar{D};Transverse momentum #it{p}_{t} [GeV/c];"
       "#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
       "[(GeV/c)^{-1}];",
       n_bins_DD, bin_edges_DD);
@@ -394,7 +389,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
   ROOT::TThreadedObject<TH1D> th_h_pt_antideuteron_out_piP_pi0_D(
       "h_pt_antideuteron_out_piP_pi0_D",
       "#bar{D} #it{p}_{t} distribution from #bar{n}+#bar{n} to "
-      "#pi^{+}+#pi^{0}+#bar{D};Transverse momentum #it{p}_{t} "
+      "#pi^{+}+#pi^{0}+#bar{D};Transverse momentum #it{p}_{t} [GeV/c];"
       "#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
       "[(GeV/c)^{-1}];",
       n_bins_DD, bin_edges_DD);
@@ -457,15 +452,14 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
       } else {
 
         // norm = 1000 / (3.179165 * value_from_table)
-        // deuterone -> 1/sigma = 1.7136 1/barn
-        // antideut  -> 1/sigma = 1.56872 1/barn
-        // norm default = 119.6 [A]
-        // norm deuterone = 183.5597586 [B]
-        // norm antideut = 200.51252128 [C]
-        // norm fit lin [A,B] = 137.26665 [D] <- abbastanza soddisfacente
-        // norm fit = 1 [E] caso mod coalescenza
-        // norm fit 1/x = 133.581[F]
-        pythia.readString("DeuteronProduction:norm = 133.581");
+
+        // norm default   		= 119.6 [A]
+        // norm deuterone			= 183.56 (183.5597586) [B]
+        // (norm antideut			= 200.51 (200.51252128) [C])
+        // norm fit di [A,B]	= 137.27 (137.26665) [D] <- migliore
+        // norm coalescenza		= 1 [E] mod coalescenza
+        // norm fit 1/x 			= 133.58 (133.581) [F]
+        pythia.readString("DeuteronProduction:norm = 119.6");
       }
     } else {
       pythia.readString("HadronLevel:DeuteronProduction = off");
@@ -484,20 +478,12 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
     // con D
     std::array<int, 3> PDGarray;
 
-    /*   // un log che tiene conto dell'andamento della simulazione
-      Pythia8::ProgressLog logger(nevs); */
-
     TStopwatch stopwatch;
     stopwatch.Start();
 
     double elapsed_time;         // Tempo reale trascorso
     double estimated_total_time; // Stima del tempo totale
     double remaining_time;       // Stima del tempo rimanente
-
-    // elapsed_time = stopwatch.RealTime();
-    // std::cout << "\033[1;31mLEO_INFO: Init time: "
-    //          << formatHMSTime(elapsed_time) << "\033[0m";
-    // stopwatch.Reset(); // riprendi il cronometro
 
     ////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
@@ -556,9 +542,9 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
 
           // fill in reactions
           if (mom1id == 2212 && mom2id == 2212) {
-            h_vector_deuteron[5]->Fill(pt); // p+p
+            h_vector_deuteron[5]->Fill(pt); // p + p
           } else if (mom1id == 2112 && mom2id == 2112) {
-            h_vector_deuteron[8]->Fill(pt); // n+n
+            h_vector_deuteron[8]->Fill(pt); // n + n
           } else if ((mom1id == 2212 && mom2id == 2112) ||
                      (mom1id == 2112 && mom2id == 2212)) {
             h_vector_deuteron[0]->Fill(pt);
@@ -851,7 +837,8 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
         stopwatch.Continue(); // riprendi il cronometro
         // mostra la barra di progressione
         showRemainingTime(iEvent, nevs, elapsed_time, seed);
-        // std::cout << "event of th " << seed << ": " << iEvent << '\n';
+        // std::cout << "event of th " << seed << ": " << iEvent << '\n'; //
+        // debug
       }
       // logger(iEvent);
     }
@@ -896,16 +883,12 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
   std::cout << "debug 3.3" << '\n'; // debug
 
   // riempimento istogrammi totali dei protoni e dei deuteroni
-  /* h_pt_tot_pp->Add(h_pt_proton, h_pt_antiproton, 1, 1);
-  h_pt_tot_DD->Add(h_pt_deuteron, h_pt_antideuteron, 1, 1); */
-
   h_main_vector[2]->Add(h_main_vector[0].get(), h_main_vector[1].get(), 1, 1);
   h_main_vector[5]->Add(h_main_vector[3].get(), h_main_vector[4].get(), 1, 1);
 
   // lambda da applicare a tutti gli istogrammi
   auto action_hist_lambda = [nevs](std::shared_ptr<TH1D> hist) {
     if (hist) {
-      /// std::cout << "vector of hist" << '\n';
       // riscalaggio grafici
       hist->Scale(1. / (nevs * g_poolSize), "width");
       // salvataggio grafici
@@ -940,7 +923,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
   gDirectory->cd("..");
   std::cout << "debug 5" << '\n'; // debug
 
-  resultfile->Close(); // chiusura file (anche se lo fa in automatico)
+  resultfile->Close();            // chiusura file
   std::cout << "debug 6" << '\n'; // debug
 
   return 0;
