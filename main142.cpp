@@ -389,11 +389,11 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
     // norm = 1000 / (3.179165 * value_from_table)
 
     // norm default   		= 119.6 [A]
-    // norm deuterone			= 183.56 (183.5597586) [B]
-    // (norm antideut			= 200.51 (200.51252128) [C])
-    // norm fit di [A,B]	= 137.27 (137.26665) [D] <- migliore
+    // norm deuterone			= 183.5597586 [B]
+    // (norm antideut			= 200.51252128 [C])
+    // norm fit di [A,B]	= 137.26665 [D] <- migliore
     // norm coalescenza		= 1 [E] mod coalescenza
-    // norm fit 1/x 			= 133.58 (133.581) [F]
+    // norm fit 1/x 			= 133.581 [F]
     pythia.readString("DeuteronProduction:norm = 137.26665");
   } else {
     pythia.readString("HadronLevel:DeuteronProduction = off");
