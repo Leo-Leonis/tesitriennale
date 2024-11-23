@@ -388,7 +388,7 @@ int main142(const int nevs = 1e4,
   pythia.readString("HardQCD:all = off");
   pythia.readString("LowEnergyQCD:all = off");
   pythia.readString("SoftQCD:inelastic = on");
-  const TString outTag = "";
+  TString outTag = "";
   if (Dprod == true) {
     pythia.readString("HadronLevel:DeuteronProduction = on");
 

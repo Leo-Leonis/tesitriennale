@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 RunId=${1-0}
 
 echo $RunId
@@ -8,7 +7,6 @@ echo $RunId
 float_result=$(echo "scale=5; $RunId / 100" | bc)
 float_result=$(echo "scale=5; $RunId / 1" | bc)
 sleep $float_result
-
 
 outDir="output/run_${RunId}/"
 if [ -d $outDir ]; then
@@ -26,3 +24,4 @@ eval $Cmd
 
 cd -
 
+echo $RunId >>donelist.txt
