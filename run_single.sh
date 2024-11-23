@@ -2,6 +2,15 @@
 
 RunId=${1-0}
 
+
+float_result=$(( RunId - 1 ))
+float_result=$(( float_result % 100 ))
+float_result=$(( float_result * 10))
+
+echo "Running $RunId: sleeping $float_result"
+sleep $float_result
+
+
 if [[ $RunId == "1" ]]; then
     echo "Running $RunId"
 else
