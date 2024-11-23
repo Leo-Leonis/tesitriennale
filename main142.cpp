@@ -64,10 +64,10 @@ int main142(const int nevs = 1e4,
             const bool Dprod = 1,
             const int seed = 10,
             const int runMode = 0) {
-  gSystem->Exec("date > started");
   if (nevs == 0) {
     return 0;
   }
+  gSystem->Exec("date > started");
   gStyle->SetOptStat(2200);
   // gStyle->SetOptFit(1111);
 

@@ -11,7 +11,7 @@ else
         if [[ -f $previousRun ]]; then
             break
         fi
-        sleep 1
+        sleep 5
     done
     echo "Running $RunId"
 fi
