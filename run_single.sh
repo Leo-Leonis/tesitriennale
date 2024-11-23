@@ -3,8 +3,9 @@
 RunId=${1-0}
 
 
-float_result=$(echo "scale=5; $RunId / 100" | bc)
-float_result=$(echo "scale=5; $RunId % 100 * 60" | bc)
+float_result=$(( RunId % 100 ))
+float_result=$(( float_result * 60))
+
 echo "Running $RunId: sleeping $float_result"
 sleep $float_result
 
