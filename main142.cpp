@@ -59,9 +59,14 @@ void showProgressBar(int progress, int total, double elapsed_time) {
   std::cout.flush(); // Assicura che la barra venga aggiornata immediatamente
 }
 
-int main142(const int nevs = 1e4, const bool Dprod = 1,
-            const bool coal_mod = 0) {
-
+int main142(const int nevs = 1e4,
+            const bool Dprod = 1,
+            const int seed = 10,
+            const int runMode = 0) {
+  if (nevs == 0)
+  {
+    return 0;
+  }
   gStyle->SetOptStat(2200);
   // gStyle->SetOptFit(1111);
 
@@ -375,7 +380,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
   pythia.readString("Beams:frameType  = 1");
 
   pythia.readString("Random:setSeed = on");
-  pythia.readString("Random:seed = 10");
+  pythia.readString(Form("Random:seed = %i", seed));
   pythia.readString("Next:numberCount = 0"); // numero dei conti disattivato
   pythia.readString("PartonVertex:setVertex = on");
   pythia.readString("Fragmentation:setVertices = on");
@@ -383,35 +388,60 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
   pythia.readString("HardQCD:all = off");
   pythia.readString("LowEnergyQCD:all = off");
   pythia.readString("SoftQCD:inelastic = on");
+  const TString outTag = "";
   if (Dprod == true) {
     pythia.readString("HadronLevel:DeuteronProduction = on");
 
     // norm = 1000 / (3.179165 * value_from_table)
 
-    // norm default   		= 119.6 [A]
-    // norm deuterone			= 183.5597586 [B]
-    // (norm antideut			= 200.51252128 [C])
-    // norm fit di [A,B]	= 137.26665 [D] <- migliore
-    // norm coalescenza		= 1 [E] mod coalescenza
+    switch (runMode)
+    {
+    case 0:
+      // norm default   		= 119.6 [A]
+      outTag = "_modeA";
+      pythia.readString("DeuteronProduction:norm = 119.6");
+      break;
+    case 1:
+      // norm deuterone			= 183.5597586 [B]
+      pythia.readString("DeuteronProduction:norm = 183.5597586");
+      outTag = "_modeB";
+    case 2:
+      // (norm antideut			= 200.51252128 [C])
+      pythia.readString("DeuteronProduction:norm = 200.51252128");
+      outTag = "_modeC";
+    case 3:
+      // norm fit di [A,B]	= 137.26665 [D] <- migliore
+      pythia.readString("DeuteronProduction:norm = 137.26665");
+      outTag = "_modeD";
+    case 4:
+      // norm coalescenza		= 1 [E] mod coalescenza
+      // modello di coalescenza prevede solo capture radiattiva
+      // normalizzazione = 1 perché vogliamo essere certi che verrà prodotta il
+      // deuterone
+      outTag = "_modeE";
+      pythia.readString("DeuteronProduction:norm = 1");
+      pythia.readString(
+          "DeuteronProduction:channels = {2212 2112 > 22}"); // solo capture
+                                                             // radiattiva
+      pythia.readString(
+          "DeuteronProduction:models = {0}"); // modifica del primo canale
+                                              // di produzione (a coal.)
+      pythia.readString(
+          "DeuteronProduction:parms = {0.195 1}"); // modifica del param del primo
+                                                   // canale di produzione
+      outTag = "_modeE";
+    case 5:
     // norm fit 1/x 			= 133.581 [F]
-    pythia.readString("DeuteronProduction:norm = 137.26665");
+      pythia.readString("DeuteronProduction:norm = 133.581");
+      outTag = "_modeF";
+    default:
+      pythia.readString("DeuteronProduction:norm = 137.26665");
+      outTag = "_modeStd";
+      break;
+    }
   } else {
+    outTag = "_modeNoDeuteron";
     pythia.readString("HadronLevel:DeuteronProduction = off");
-  }
-
-  if (coal_mod == 1) { // modello di coalescenza prevede solo capture radiattiva
-    // normalizzazione = 1 perché vogliamo essere certi che verrà prodotta il
-    // deuterone
-    pythia.readString("DeuteronProduction:norm = 1");
-    pythia.readString(
-        "DeuteronProduction:channels = {2212 2112 > 22}"); // solo capture
-                                                           // radiattiva
-    pythia.readString(
-        "DeuteronProduction:models = {0}"); // modifica del primo canale
-                                            // di produzione (a coal.)
-    pythia.readString(
-        "DeuteronProduction:parms = {0.195 1}"); // modifica del param del primo
-                                                 // canale di produzione
   }
 
   // se Pythia si rompe, uccidi il programma.
@@ -804,7 +834,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
   };
 
   // file di output
-  TFile *resultfile = new TFile("main142.root", "RECREATE");
+  TFile *resultfile = new TFile("main142"+outTag+".root", "RECREATE");
   // sotto directory
   TDirectory *p_D_dir = resultfile->mkdir("p_D_production");
   TDirectory *deuteron_dir = resultfile->mkdir("deuteron");
