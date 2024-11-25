@@ -7,6 +7,7 @@ RunningMode=${2-1}
 float_result=$(( RunId - 1 ))
 float_result=$(( float_result % 100 ))
 float_result=$(( float_result * 30))
+float_result=$(( float_result * 15))
 #float_result=1
 
 echo "Running $RunId: sleeping $float_result"
