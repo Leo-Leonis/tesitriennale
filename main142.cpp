@@ -406,14 +406,17 @@ int main142(const int nevs = 1e4,
       // norm deuterone			= 183.5597586 [B]
       pythia.readString("DeuteronProduction:norm = 183.5597586");
       outTag = "_modeB";
+      break;
     case 2:
       // (norm antideut			= 200.51252128 [C])
       pythia.readString("DeuteronProduction:norm = 200.51252128");
       outTag = "_modeC";
+      break;
     case 3:
       // norm fit di [A,B]	= 137.26665 [D] <- migliore
       pythia.readString("DeuteronProduction:norm = 137.26665");
       outTag = "_modeD";
+      break;
     case 4:
       // norm coalescenza		= 1 [E] mod coalescenza
       // modello di coalescenza prevede solo capture radiattiva
@@ -431,10 +434,12 @@ int main142(const int nevs = 1e4,
           "DeuteronProduction:parms = {0.195 1}"); // modifica del param del primo
                                                    // canale di produzione
       outTag = "_modeE";
+      break;
     case 5:
-    // norm fit 1/x 			= 133.581 [F]
+      // norm fit 1/x 			= 133.581 [F]
       pythia.readString("DeuteronProduction:norm = 133.581");
       outTag = "_modeF";
+      break;
     default:
       pythia.readString("DeuteronProduction:norm = 137.26665");
       outTag = "_modeStd";
