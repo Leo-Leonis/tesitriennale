@@ -842,6 +842,7 @@ int main142(const int nevs = 1e4,
   TDirectory *antideuteron_dir = resultfile->mkdir("antideuteron");
   TH1F *hevents = new TH1F("hevents", "hevents", 1, 0, 1);
   hevents->SetBinContent(1, nevs);
+  hevents->Write();
   gDirectory->cd("p_D_production");
   // riscala e salva gli istogrammi
   std::for_each(h_main_vector.begin(), h_main_vector.end(), action_hist_lambda);
