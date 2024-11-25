@@ -1,6 +1,7 @@
 #!/bin/bash
 
 RunId=${1-0}
+RunningMode=${2-1}
 
 
 float_result=$(( RunId - 1 ))
@@ -38,7 +39,7 @@ fi
 
 date >log
 
-Cmd="root -l -b -q 'main142.cpp+(1000000, 1, ${RunId}, 1)'"
+Cmd="root -l -b -q 'main142.cpp+(1000000, 1, ${RunId}, ${RunningMode})'"
 echo $Cmd >>log
 eval $Cmd >>log
 
