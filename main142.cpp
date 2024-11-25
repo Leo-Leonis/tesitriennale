@@ -828,7 +828,7 @@ int main142(const int nevs = 1e4,
   auto action_hist_lambda = [nevs](TH1D *hist) {
     if (hist) {
       // riscalaggio grafici
-      hist->Scale(1. / nevs, "width");
+      // hist->Scale(1. / nevs, "width");
       // salvataggio grafici
       hist->Write();
     }
@@ -840,7 +840,8 @@ int main142(const int nevs = 1e4,
   TDirectory *p_D_dir = resultfile->mkdir("p_D_production");
   TDirectory *deuteron_dir = resultfile->mkdir("deuteron");
   TDirectory *antideuteron_dir = resultfile->mkdir("antideuteron");
-
+  TH1F *hevents = new TH1F("hevents", "hevents", 1, 0, 1);
+  hevents->SetBinContent(1, nevs);
   gDirectory->cd("p_D_production");
   // riscala e salva gli istogrammi
   std::for_each(h_main_vector.begin(), h_main_vector.end(), action_hist_lambda);
