@@ -2,7 +2,7 @@
 
 Tag=${1}
 
-Files=$(find output | grep run | grep ${Tag} | grep root)
+Files=$(find output_${Tag} | grep run | grep ${Tag} | grep root)
 
-hadd output/merged_mode${Tag}.root $Files
+hadd output_${Tag}/merged_mode${Tag}.root $Files
 

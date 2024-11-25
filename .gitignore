@@ -18,4 +18,5 @@ main142_ON_1e5.root
 main142_1e5.root
 output/
 *.txt
+output_*
 runs.txt
