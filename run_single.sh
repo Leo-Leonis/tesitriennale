@@ -5,26 +5,26 @@ RunId=${1-0}
 
 float_result=$(( RunId - 1 ))
 float_result=$(( float_result % 100 ))
-float_result=$(( float_result * 10))
-float_result=1
+float_result=$(( float_result * 30))
+#float_result=1
 
 echo "Running $RunId: sleeping $float_result"
 sleep $float_result
 
 
-if [[ $RunId == "1" ]]; then
-    echo "Running $RunId"
-else
-    previousRun=output/run_$((RunId - 1))/started
-    echo "$RunId waiting for $previousRun"
-    while true; do
-        if [[ -f $previousRun ]]; then
-            break
-        fi
-        sleep 5
-    done
-    echo "Running $RunId"
-fi
+#if [[ $RunId == "1" ]]; then
+#    echo "Running $RunId"
+#else
+#    previousRun=output/run_$((RunId - 1))/started
+#    echo "$RunId waiting for $previousRun"
+#    while true; do
+#        if [[ -f $previousRun ]]; then
+#            break
+#        fi
+#        sleep 5
+#    done
+#    echo "Running $RunId"
+#fi
 
 outDir="output/run_${RunId}/"
 if [ -d $outDir ]; then
@@ -38,7 +38,7 @@ fi
 
 date >log
 
-Cmd="root -l -b -q 'main142.cpp+(1000000, 1, ${RunId}, 0)'"
+Cmd="root -l -b -q 'main142.cpp+(1000000, 1, ${RunId}, 1)'"
 echo $Cmd >>log
 eval $Cmd >>log
 
