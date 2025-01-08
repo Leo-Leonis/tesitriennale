@@ -132,38 +132,38 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
       "h_pt_proton",
       "Proton #it{p}_{t} distribution;Transverse momentum #it{p}_{t} [GeV/c];"
       "#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
-      "[(GeV/c)^{-1}];",
+      "[(GeV/c)^{-1}]",
       n_bins_pp, bin_edges_pp);
   ROOT::TThreadedObject<TH1D> th_h_pt_antiproton(
       "h_pt_antiproton",
       "Antiproton #it{p}_{t} distribution;Transverse momentum #it{p}_{t} "
       "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
-      "[(GeV/c)^{-1}];",
+      "[(GeV/c)^{-1}]",
       n_bins_pp, bin_edges_pp);
   ROOT::TThreadedObject<TH1D> th_h_pt_tot_pp(
       "h_pt_tot_pp",
       "p+#bar{p} #it{p}_{t} distribution;Transverse momentum #it{p}_{t} "
       "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
-      "[(GeV/c)^{-1}];",
+      "[(GeV/c)^{-1}]",
       n_bins_pp, bin_edges_pp);
 
   ROOT::TThreadedObject<TH1D> th_h_pt_deuteron(
       "h_pt_deuteron",
       "Deuteron #it{p}_{t} distribution;Transverse momentum #it{p}_{t} "
       "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
-      "[(GeV/c)^{-1}];",
+      "[(GeV/c)^{-1}]",
       n_bins_DD, bin_edges_DD);
   ROOT::TThreadedObject<TH1D> th_h_pt_antideuteron(
       "h_pt_antideuteron",
       "Antideuteron #it{p}_{t} distribution;Transverse momentum #it{p}_{t} "
       "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
-      "[(GeV/c)^{-1}];",
+      "[(GeV/c)^{-1}]",
       n_bins_DD, bin_edges_DD);
   ROOT::TThreadedObject<TH1D> th_h_pt_tot_DD(
       "h_pt_tot_DD",
       "D+#bar{D} #it{p}_{t} distribution;Transverse momentum #it{p}_{t} "
       "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
-      "[(GeV/c)^{-1}];",
+      "[(GeV/c)^{-1}]",
       n_bins_DD, bin_edges_DD);
 
   std::vector<ROOT::TThreadedObject<TH1D> *> h_main_vector_th;
@@ -182,7 +182,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
       "Deuteron #it{p}_{t} distribution from p+n;Transverse momentum "
       "#it{p}_{t} "
       "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
-      "[(GeV/c)^{-1}];",
+      "[(GeV/c)^{-1}]",
       n_bins_DD, bin_edges_DD);
 
   //// distribuzione di D prodotti da p+n a g+D
@@ -191,7 +191,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
       "D #it{p}_{t} distribution from p+n to #gamma+D;Transverse momentum "
       "#it{p}_{t} "
       "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
-      "[(GeV/c)^{-1}];",
+      "[(GeV/c)^{-1}]",
       n_bins_DD, bin_edges_DD);
   //// distribuzione di D prodotti da p+n a pi0+D
   ROOT::TThreadedObject<TH1D> th_h_pt_deuteron_out_pi0_D(
@@ -199,7 +199,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
       "D #it{p}_{t} distribution from p+n to #pi^{0}+D;Transverse "
       "momentum #it{p}_{t} "
       "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
-      "[(GeV/c)^{-1}];",
+      "[(GeV/c)^{-1}]",
       n_bins_DD, bin_edges_DD);
   //// distribuzione di D prodotti da p+n a piP+piM+D
   ROOT::TThreadedObject<TH1D> th_h_pt_deuteron_out_piP_piM_D(
@@ -207,7 +207,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
       "D #it{p}_{t} distribution from p+n to #pi^{+}+#pi^{-}+D;Transverse "
       "momentum #it{p}_{t} "
       "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
-      "[(GeV/c)^{-1}];",
+      "[(GeV/c)^{-1}]",
       n_bins_DD, bin_edges_DD);
   //// distribuzione di D prodotti da p+n a pi0+pi0+D
   ROOT::TThreadedObject<TH1D> th_h_pt_deuteron_out_pi0_pi0_D(
@@ -215,7 +215,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
       "D #it{p}_{t} distribution from p+n to #pi^{0}+#pi^{0}+D;Transverse "
       "momentum #it{p}_{t} "
       "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
-      "[(GeV/c)^{-1}];",
+      "[(GeV/c)^{-1}]",
       n_bins_DD, bin_edges_DD);
 
   std::vector<ROOT::TThreadedObject<TH1D> *> h_vector_deuteron_th;
@@ -231,7 +231,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
       "Deuteron #it{p}_{t} distribution from p+p;Transverse "
       "momentum #it{p}_{t} "
       "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
-      "[(GeV/c)^{-1}];",
+      "[(GeV/c)^{-1}]",
       n_bins_DD, bin_edges_DD);
 
   //// distribuzione di D prodotti da p+p a piP+D
@@ -240,7 +240,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
       "D #it{p}_{t} distribution from p+p to #pi^{+}+D;Transverse "
       "momentum #it{p}_{t} "
       "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
-      "[(GeV/c)^{-1}];",
+      "[(GeV/c)^{-1}]",
       n_bins_DD, bin_edges_DD);
   //// distribuzione di D prodotti da p+p a piP+pi0+D
   ROOT::TThreadedObject<TH1D> th_h_pt_deuteron_out_piP_pi0_D(
@@ -248,7 +248,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
       "D #it{p}_{t} distribution from p+p to #pi^{+}+#pi^{0}+D;Transverse "
       "momentum #it{p}_{t} "
       "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
-      "[(GeV/c)^{-1}];",
+      "[(GeV/c)^{-1}]",
       n_bins_DD, bin_edges_DD);
 
   h_vector_deuteron_th.push_back(&th_h_pt_deuteron_in_p_p);
@@ -261,7 +261,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
       "Deuteron #it{p}_{t} distribution from n+n;Transverse "
       "momentum #it{p}_{t} "
       "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
-      "[(GeV/c)^{-1}];",
+      "[(GeV/c)^{-1}]",
       n_bins_DD, bin_edges_DD);
 
   //// distribuzione di D prodotti da n+n a piM+D
@@ -270,7 +270,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
       "D #it{p}_{t} distribution from p+p to #pi^{-}+D;Transverse "
       "momentum #it{p}_{t} "
       "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
-      "[(GeV/c)^{-1}];",
+      "[(GeV/c)^{-1}]",
       n_bins_DD, bin_edges_DD);
   //// distribuzione di D prodotti da n+n a piM+pi0+D
   ROOT::TThreadedObject<TH1D> th_h_pt_deuteron_out_piM_pi0_D(
@@ -278,7 +278,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
       "D #it{p}_{t} distribution from p+p to #pi^{-}+#pi^{0}+D;Transverse "
       "momentum #it{p}_{t} "
       "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
-      "[(GeV/c)^{-1}];",
+      "[(GeV/c)^{-1}]",
       n_bins_DD, bin_edges_DD);
 
   h_vector_deuteron_th.push_back(&th_h_pt_deuteron_in_n_n);
@@ -293,7 +293,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
       "Antideuteron #it{p}_{t} distribution from #bar{p}+#bar{n};Transverse "
       "momentum #it{p}_{t} "
       "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
-      "[(GeV/c)^{-1}];",
+      "[(GeV/c)^{-1}]",
       n_bins_DD, bin_edges_DD);
 
   //// distribuzione di D- prodotti da p+n a g+D-
@@ -303,7 +303,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
       "#gamma+#bar{D};Transverse "
       "momentum #it{p}_{t} "
       "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
-      "[(GeV/c)^{-1}];",
+      "[(GeV/c)^{-1}]",
       n_bins_DD, bin_edges_DD);
   //// distribuzione di D- prodotti da p+n a pi0+D-
   ROOT::TThreadedObject<TH1D> th_h_pt_antideuteron_out_pi0_D(
@@ -312,7 +312,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
       "#pi^{0}+#bar{D};Transverse "
       "momentum #it{p}_{t} "
       "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
-      "[(GeV/c)^{-1}];",
+      "[(GeV/c)^{-1}]",
       n_bins_DD, bin_edges_DD);
   //// distribuzione di D- prodotti da p+n a piP+piM+D-
   ROOT::TThreadedObject<TH1D> th_h_pt_antideuteron_out_piP_piM_D(
@@ -320,7 +320,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
       "#bar{D} #it{p}_{t} distribution from #bar{p}+#bar{n} to "
       "#pi^{+}+#pi^{-}+#bar{D};Transverse momentum #it{p}_{t} [GeV/c];"
       "#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
-      "[(GeV/c)^{-1}];",
+      "[(GeV/c)^{-1}]",
       n_bins_DD, bin_edges_DD);
   //// distribuzione di D- prodotti da p+n a pi0+pi0+D-
   ROOT::TThreadedObject<TH1D> th_h_pt_antideuteron_out_pi0_pi0_D(
@@ -328,7 +328,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
       "#bar{D} #it{p}_{t} distribution from #bar{p}+#bar{n} to "
       "#pi^{0}+#pi^{0}+#bar{D};Transverse momentum #it{p}_{t} [GeV/c];"
       "#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
-      "[(GeV/c)^{-1}];",
+      "[(GeV/c)^{-1}]",
       n_bins_DD, bin_edges_DD);
 
   std::vector<ROOT::TThreadedObject<TH1D> *> h_vector_antideuteron_th;
@@ -344,7 +344,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
       "Antideuteron #it{p}_{t} distribution from #bar{p}+#bar{p};Transverse "
       "momentum #it{p}_{t} "
       "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
-      "[(GeV/c)^{-1}];",
+      "[(GeV/c)^{-1}]",
       n_bins_DD, bin_edges_DD);
 
   //// distribuzione di D- prodotti da p+p a piM+D-
@@ -353,7 +353,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
       "#bar{D} #it{p}_{t} distribution from #bar{p}+#bar{p} to "
       "#pi^{-}+#bar{D};Transverse momentum #it{p}_{t} [GeV/c];"
       "#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
-      "[(GeV/c)^{-1}];",
+      "[(GeV/c)^{-1}]",
       n_bins_DD, bin_edges_DD);
   //// distribuzione di D- prodotti da p+p a piM+pi0+D-
   ROOT::TThreadedObject<TH1D> th_h_pt_antideuteron_out_pi0_piM_D(
@@ -361,7 +361,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
       "#bar{D} #it{p}_{t} distribution from #bar{p}+#bar{p} to "
       "#pi^{-}+#pi^{0}+#bar{D};Transverse momentum #it{p}_{t} [GeV/c];"
       "#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
-      "[(GeV/c)^{-1}];",
+      "[(GeV/c)^{-1}]",
       n_bins_DD, bin_edges_DD);
 
   h_vector_antideuteron_th.push_back(&th_h_pt_antideuteron_in_p_p);
@@ -374,7 +374,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
       "Antideuteron #it{p}_{t} distribution from #bar{n}+#bar{n};Transverse "
       "momentum #it{p}_{t} "
       "[GeV/c];#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
-      "[(GeV/c)^{-1}];",
+      "[(GeV/c)^{-1}]",
       n_bins_DD, bin_edges_DD);
 
   //// distribuzione di D- prodotti da n+n a piP+D-
@@ -383,7 +383,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
       "#bar{D} #it{p}_{t} distribution from #bar{n}+#bar{n} to "
       "#pi^{+}+#bar{D};Transverse momentum #it{p}_{t} [GeV/c];"
       "#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
-      "[(GeV/c)^{-1}];",
+      "[(GeV/c)^{-1}]",
       n_bins_DD, bin_edges_DD);
   //// distribuzione di D- prodotti da n+n a piP+pi0+D-
   ROOT::TThreadedObject<TH1D> th_h_pt_antideuteron_out_piP_pi0_D(
@@ -391,7 +391,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
       "#bar{D} #it{p}_{t} distribution from #bar{n}+#bar{n} to "
       "#pi^{+}+#pi^{0}+#bar{D};Transverse momentum #it{p}_{t} [GeV/c];"
       "#frac{1}{#it{N}_{events}}#frac{d^{2}#it{N}}{d#it{p}_{t}d#it{y}} "
-      "[(GeV/c)^{-1}];",
+      "[(GeV/c)^{-1}]",
       n_bins_DD, bin_edges_DD);
 
   h_vector_antideuteron_th.push_back(&th_h_pt_antideuteron_in_n_n);
@@ -459,7 +459,7 @@ int main142(const int nevs = 1e4, const bool Dprod = 1,
         // norm fit di [A,B]	= 137.26665 [D] <- migliore
         // norm coalescenza		= 1 [E] mod coalescenza
         // norm fit 1/x 			= 133.581 [F]
-        pythia.readString("DeuteronProduction:norm = 119.6");
+        pythia.readString("DeuteronProduction:norm = 183.5597586");
       }
     } else {
       pythia.readString("HadronLevel:DeuteronProduction = off");
