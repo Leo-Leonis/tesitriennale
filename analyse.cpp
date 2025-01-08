@@ -3,8 +3,10 @@
 #include "TGraph.h"
 #include "TGraphAsymmErrors.h"
 #include "TH1D.h"
+#include "TH1F.h"
 #include "TLegend.h"
 #include "TMath.h"
+#include "TString.h"
 #include "TStyle.h"
 
 #include <iostream>
@@ -56,25 +58,35 @@ int analyse(int const analyse_id = -1, bool const do_print = 0) {
   gStyle->SetStripDecimals(kFALSE); // stessi numeri di decimali
 
   std::string analyse_file;
+  TString analyse_case = "";
   switch (analyse_id) {
   case 0:
-    analyse_file = "simu_data/main142_A_1e7.root";
+    analyse_file = "simu_data/main142_A_1e8.root";
+    analyse_case = "A";
     break;
   case 1:
-    analyse_file = "simu_data/main142_B_1e7.root";
+    analyse_file = "simu_data/main142_B_1e8.root";
+    analyse_case = "B";
     break;
   case 2:
-    analyse_file = "simu_data/main142_D_1e7.root";
+    analyse_file = "simu_data/main142_D_1e8.root";
+    analyse_case = "D";
     break;
   case 3:
-    analyse_file = "simu_data/main142_E_1e7.root";
+    analyse_file = "simu_data/main142_E_1e8.root";
+    analyse_case = "E";
     break;
   case 4:
-    analyse_file = "simu_data/main142_F_1e7.root";
+    analyse_file = "simu_data/main142_F_1e8.root";
+    analyse_case = "F";
+    break;
+  case 5:
+    analyse_file = "simu_data/main142_G_1e8.root";
+    analyse_case = "G";
     break;
   default:
     std::cout << "LEO_ERROR: Invalid analyse_id, allowed are: 0(A), 1(B), "
-                 "2(D), 3(E), 4(F)"
+                 "2(D), 3(E), 4(F), 5(G)"
               << '\n';
     return 0;
   }
@@ -83,7 +95,7 @@ int analyse(int const analyse_id = -1, bool const do_print = 0) {
   // TFile *simu_ON_file = new TFile("main142_E_5e6.root", "READ");
   TFile *simu_ON_file = new TFile(analyse_file.c_str(), "READ");
   // TFile *simu_OFF_file = new TFile("main142.root", "READ");
-  TFile *simu_OFF_file = new TFile("simu_data/main142_OFF_1e7.root", "READ");
+  TFile *simu_OFF_file = new TFile("simu_data/main142_OFF_1e8.root", "READ");
   TFile *cern_pp_file = new TFile("cern_data/pp_pt.root", "READ");
   TFile *cern_deuteron_file = new TFile("cern_data/deuteron_pt.root", "READ");
   TFile *cern_antideuteron_file =
@@ -94,6 +106,8 @@ int analyse(int const analyse_id = -1, bool const do_print = 0) {
   // prendi gli istogrammi
   TH1D *h_pt_simu_ON_tot_pp =
       (TH1D *)simu_ON_file->Get("p_D_production/h_pt_tot_pp");
+
+  //  h_pt_simu_ON_tot_pp->Scale(898. / nevs, "width");
 
   h_pt_simu_ON_tot_pp->SetMarkerStyle(21);
   h_pt_simu_ON_tot_pp->SetLineColor(kBlue);
@@ -169,6 +183,8 @@ int analyse(int const analyse_id = -1, bool const do_print = 0) {
 
   TH1D *h_pt_simu_deuteron =
       (TH1D *)simu_ON_file->Get("p_D_production/h_pt_deuteron");
+  // h_pt_simu_deuteron->Scale(898 / (1E8), "width");
+
   h_pt_simu_deuteron->SetMarkerStyle(21);
   h_pt_simu_deuteron->SetLineColor(kBlue);
   h_pt_simu_deuteron->SetMarkerColor(kBlue);
@@ -210,6 +226,7 @@ int analyse(int const analyse_id = -1, bool const do_print = 0) {
 
   TH1D *h_pt_simu_antideuteron =
       (TH1D *)simu_ON_file->Get("p_D_production/h_pt_antideuteron");
+  //  h_pt_simu_antideuteron->Scale(898. / nevs, "width");
   h_pt_simu_antideuteron->SetMarkerStyle(21);
   h_pt_simu_antideuteron->SetLineColor(kRed);
   h_pt_simu_antideuteron->SetMarkerColor(kRed);
@@ -390,12 +407,13 @@ int analyse(int const analyse_id = -1, bool const do_print = 0) {
     std::cout << "\033[1;31mLEO_INFO: generated graphs won't be saved!\033[0m"
               << '\n';
   } else {
-    pp_canvas->Print("analyse/pp.pdf");
-    deuteron_canvas->Print("analyse/deuteron.pdf");
-    antideuteron_canvas->Print("analyse/antideuteron.pdf");
-    ratio_pp_ON_OFF_canvas->Print("analyse/ratio_pp_ON_OFF.pdf");
-    division_canvas->Print("analyse/division.pdf");
-    ratio_DD_canvas->Print("analyse/ratio_DD.pdf");
+    pp_canvas->Print("analyse/" + analyse_case + "/pp.pdf");
+    deuteron_canvas->Print("analyse/" + analyse_case + "/deuteron.pdf");
+    antideuteron_canvas->Print("analyse/" + analyse_case + "/antideuteron.pdf");
+    ratio_pp_ON_OFF_canvas->Print("analyse/" + analyse_case +
+                                  "/ratio_pp_ON_OFF.pdf");
+    division_canvas->Print("analyse/" + analyse_case + "/division.pdf");
+    ratio_DD_canvas->Print("analyse/" + analyse_case + "/ratio_DD.pdf");
   }
 
   return 0;
