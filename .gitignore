@@ -1,6 +1,5 @@
 __pycache__/
 .vscode/
-thesis/
 logmaker.py
 runPythia.py
 *.so
@@ -11,6 +10,7 @@ runPythia.py
 test.cpp
 test
 param.txt
+!thesis/**/*.pdf
 
 main142_OFF_1e4.root
 main142_OFF_1e5.root
