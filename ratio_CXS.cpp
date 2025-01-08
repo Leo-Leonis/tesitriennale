@@ -5,6 +5,7 @@
 #include "TH1D.h"
 #include "TLegend.h"
 #include "TMath.h"
+#include "TString.h"
 #include "TStyle.h"
 
 #include <iostream>
@@ -48,21 +49,26 @@ void weightedMeanY(TH1D *hist) {
 int ratio_CXS(const int analyse_id = -1, bool const do_print = 0) {
 
   std::string analyse_file;
+  TString analyse_case;
   switch (analyse_id) {
   case 0:
-    analyse_file = "simu_data/main142_A_1e7.root";
+    analyse_file = "simu_data/main142_A_1e8.root";
+    analyse_case = "A";
     break;
   case 1:
-    analyse_file = "simu_data/main142_B_1e7.root";
+    analyse_file = "simu_data/main142_B_1e8.root";
+    analyse_case = "B";
     break;
   case 2:
-    analyse_file = "simu_data/main142_D_1e7.root";
+    analyse_file = "simu_data/main142_D_1e8.root";
+    analyse_case = "D";
     break;
   case 4:
-    analyse_file = "simu_data/main142_F_1e7.root";
+    analyse_file = "simu_data/main142_F_1e8.root";
+    analyse_case = "F";
     break;
   case 3:
-    analyse_file = "simu_data/main142_E_1e7.root";
+    analyse_file = "simu_data/main142_E_1e8.root";
   default:
     std::cout << "LEO_ERROR: Invalid analyse_id, allowed are: 0(A), 1(B), "
                  "2(D), 4(F)"
@@ -78,11 +84,8 @@ int ratio_CXS(const int analyse_id = -1, bool const do_print = 0) {
   gStyle->SetStripDecimals(kFALSE); // stessi numeri di decimali
 
   // prendi i file
-  // TFile *simu_xs_file = new TFile("main142_E_5e6.root", "READ");
-  // TFile *simu_xs_file = new TFile("simu_data/main142_E_ON_1e7.root", "READ");
   TFile *simu_xs_file = new TFile(analyse_file.c_str(), "READ");
-  TFile *simu_coal_file = new TFile("simu_data/main142_E_1e7.root", "READ");
-  // TFile *simu_OFF_file = new TFile("main142.root", "READ");
+  TFile *simu_coal_file = new TFile("simu_data/main142_E_1e8.root", "READ");
   TFile *root_deuteron_file = new TFile("cern_data/deuteron_pt.root", "READ");
   TFile *root_antideuteron_file =
       new TFile("cern_data/antideuteron_pt.root", "READ");
@@ -160,7 +163,7 @@ int ratio_CXS(const int analyse_id = -1, bool const do_print = 0) {
     std::cout << "\033[1;31mLEO_INFO: generated graphs won't be saved!\033[0m"
               << '\n';
   } else {
-    ratio_CXS_canvas->Print("analyse/ratio_CXS.pdf");
+    ratio_CXS_canvas->Print("analyse/" + analyse_case + "/ratio_CXS.pdf");
   }
 
   return 0;

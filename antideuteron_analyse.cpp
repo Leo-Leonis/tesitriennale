@@ -13,24 +13,30 @@
 int antideuteron_analyse(const int analyse_id = -1, bool const do_print = 0) {
 
   std::string analyse_file;
+  TString analyse_case = "";
   switch (analyse_id) {
   case 0:
-    analyse_file = "simu_data/main142_A_1e7.root";
+    analyse_file = "simu_data/main142_A_1e8.root";
+    analyse_case = "A";
     break;
   case 1:
-    analyse_file = "simu_data/main142_B_1e7.root";
+    analyse_file = "simu_data/main142_B_1e8.root";
+    analyse_case = "B";
     break;
   case 2:
-    analyse_file = "simu_data/main142_D_1e7.root";
+    analyse_file = "simu_data/main142_D_1e8.root";
+    analyse_case = "D";
     break;
   case 4:
-    analyse_file = "simu_data/main142_F_1e7.root";
+    analyse_file = "simu_data/main142_F_1e8.root";
+    analyse_case = "F";
     break;
   case 3:
-    analyse_file = "simu_data/main142_E_1e7.root";
+    analyse_file = "simu_data/main142_E_1e8.root";
+    analyse_case = "E";
   default:
     std::cout << "LEO_ERROR: Invalid analyse_id, allowed are: 0(A), 1(B), "
-                 "2(D), 4(F)"
+                 "2(D), 3(E), 4(F)"
               << '\n';
     return 0;
   }
@@ -158,7 +164,7 @@ int antideuteron_analyse(const int analyse_id = -1, bool const do_print = 0) {
   h_p_n_1->SetFillColor(kRed + 2);
   h_p_n_1->SetLineColor(kBlack);
   h_p_n_1->SetTitle(
-      "Antideuteron relative #it{p}_{t} distribution from "
+      "Antideuteron relative production #it{p}_{t} distribution from "
       "#bar{p}+#bar{n};Transverse momentum #it{p}_{t} [GeV/c];Ratio value");
   h_p_n_1->SetTitleOffset(1.3);
   TH1D *h_p_n_1_3 = new TH1D(*h_p_n_1);
@@ -170,6 +176,7 @@ int antideuteron_analyse(const int analyse_id = -1, bool const do_print = 0) {
   TH1D *h_p_n_0_1_2_3 = new TH1D(*h_p_n_1_2_3);
   h_p_n_0_1_2_3->Add(h_vector_norm_p_n[0]);
   h_p_n_0_1_2_3->SetFillColor(kYellow);
+  h_p_n_0_1_2_3->GetYaxis()->SetRangeUser(0., 1.05);
 
   // gli istogrammi vanno disegnati in ordine da quello più piccolo (quindi sta
   // in cima) a quello più grande, "hist" per disegnare con il tipico istogramma
@@ -267,12 +274,13 @@ int antideuteron_analyse(const int analyse_id = -1, bool const do_print = 0) {
   h_p_p_0->SetFillColor(kBlue);
   h_p_p_0->SetLineColor(kBlack);
   h_p_p_0->SetTitle(
-      "Antideuteron relative #it{p}_{t} distribution from "
+      "Antideuteron relative production #it{p}_{t} distribution from "
       "#bar{p}+#bar{p};Transverse momentum #it{p}_{t} [GeV/c];Ratio value");
   h_p_p_0->SetTitleOffset(1.3);
   TH1D *h_p_p_0_1 = new TH1D(*h_p_p_0);
   h_p_p_0_1->Add(h_vector_norm_p_p[1]);
   h_p_p_0_1->SetFillColor(kAzure + 10);
+  h_p_p_0_1->GetYaxis()->SetRangeUser(0, 1.05);
 
   h_p_p_0_1->Draw("hist,same");
   h_p_p_0_1->Draw("hist,same");
@@ -361,12 +369,13 @@ int antideuteron_analyse(const int analyse_id = -1, bool const do_print = 0) {
   h_n_n_0->SetFillColor(kGreen + 2);
   h_n_n_0->SetLineColor(kBlack);
   h_n_n_0->SetTitle(
-      "Antideuteron relative #it{p}_{t} distribution from "
+      "Antideuteron relative production #it{p}_{t} distribution from "
       "#bar{n}+#bar{n};Transverse momentum #it{p}_{t} [GeV/c];Ratio value");
   h_n_n_0->SetTitleOffset(1.3);
   TH1D *h_n_n_0_1 = new TH1D(*h_n_n_0);
   h_n_n_0_1->Add(h_vector_norm_n_n[1]);
   h_n_n_0_1->SetFillColor(kGreen);
+  h_n_n_0_1->GetYaxis()->SetRangeUser(0, 1.05);
 
   h_n_n_0_1->Draw("hist,same");
   h_n_n_0_1->Draw("hist,same");
@@ -458,7 +467,7 @@ int antideuteron_analyse(const int analyse_id = -1, bool const do_print = 0) {
   h_ov_0->SetFillColor(kRed);
   h_ov_0->SetLineColor(kBlack);
   h_ov_0->SetTitle(
-      "Antideuteron relative #it{p}_{t} production distribution;Transverse "
+      "Antideuteron relative production #it{p}_{t} distribution;Transverse "
       "momentum #it{p}_{t} [GeV/c];Ratio value");
   h_ov_0->SetTitleOffset(1.3);
   TH1D *h_ov_0_2 = new TH1D(*h_ov_0);
@@ -489,14 +498,18 @@ int antideuteron_analyse(const int analyse_id = -1, bool const do_print = 0) {
     std::cout << "\033[1;31mLEO_INFO: generated graphs won't be saved!\033[0m"
               << '\n';
   } else {
-    p_n_stack_canvas->Print("antideuteron_analyse/p_n_stack.pdf");
-    p_p_stack_canvas->Print("antideuteron_analyse/p_p_stack.pdf");
-    n_n_stack_canvas->Print("antideuteron_analyse/n_n_stack.pdf");
-    ov_stack_canvas->Print("antideuteron_analyse/ov_stack.pdf");
-    p_n_canvas->Print("antideuteron_analyse/p_n.pdf");
-    p_p_canvas->Print("antideuteron_analyse/p_p.pdf");
-    n_n_canvas->Print("antideuteron_analyse/n_n.pdf");
-    ov_canvas->Print("antideuteron_analyse/ov_log.pdf");
+    p_n_stack_canvas->Print("antideuteron_analyse/" + analyse_case +
+                            "/p_n_stack.pdf");
+    p_p_stack_canvas->Print("antideuteron_analyse/" + analyse_case +
+                            "/p_p_stack.pdf");
+    n_n_stack_canvas->Print("antideuteron_analyse/" + analyse_case +
+                            "/n_n_stack.pdf");
+    ov_stack_canvas->Print("antideuteron_analyse/" + analyse_case +
+                           "/ov_stack.pdf");
+    // p_n_canvas->Print("antideuteron_analyse/"+analyse_case+"/p_n.pdf");
+    // p_p_canvas->Print("antideuteron_analyse/"+analyse_case+"/p_p.pdf");
+    // n_n_canvas->Print("antideuteron_analyse/"+analyse_case+"/n_n.pdf");
+    ov_canvas->Print("antideuteron_analyse/" + analyse_case + "/ov_log.pdf");
   }
 
   return 0;
