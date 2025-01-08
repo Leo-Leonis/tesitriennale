@@ -1,0 +1,201 @@
+\ProvidesPackage{leo_preamble}
+
+\usepackage[utf8]{inputenc} % molto importante
+
+\usepackage{abstract}
+\usepackage{amsmath}
+\usepackage{amscd}
+%\numberwithin{equation}{subsection}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{appendix}
+\usepackage[italian]{babel} % lingua di scrittura
+%\usepackage{bm} % per avere simboli matematici in grassetto
+\usepackage[backend=biber, style=alphabetic, defernumbers, sorting=none]{biblatex}
+    % aggiunge la bibliografia
+    \addbibresource{tex/bibliografia.bib}
+\usepackage{blindtext} % per generare "Lorem ipsum dolor..." con \blindtext
+%\usepackage{booktabs} % per le linee nelle tabelle migliori
+\usepackage{cancel} % per cancellare un testo \cancel{} per una barra verso alto a dx, mentre \xcancel{} per una croce
+\usepackage{csquotes}
+%\usepackage{csvsimple-l3} % per convertire csv in tabelle
+\usepackage{emptypage} % per rendere le pagine vuote veramente vuote (= senza 
+\usepackage{enumitem} % per fare una lista numerizzata
+%\usepackage{eurosym} % per il simbolo dell'euro "€" più carino
+\usepackage{float} % per migliorare il posizionamento dei float (=immagini...)
+\usepackage{geometry} % per la geometria del foglio
+    \geometry{
+        a4paper,
+        %total={170mm,247mm},
+        left=25mm,
+        right=25mm,
+        top=30mm,
+        bottom=30mm
+    }
+\usepackage{graphicx} % per avere le immagini
+\usepackage{wrapfig} % per immagini incorniciate con il testo
+\usepackage{indentfirst} % per indentare anche il primo paragrafo
+\usepackage{hyperref} % per gli hyperlink
+    \hypersetup{
+        hidelinks,
+        colorlinks = true,
+        linkcolor = navyblue,
+        citecolor = navyblue,
+        urlcolor = navyblue
+    }
+% \usepackage[modulo,switch,pagewise]{lineno} % per avere i numeri accanto alle righe
+%     \renewcommand\linenumberfont{\sffamily\tiny\color{white!75!black}} % stile numeri
+%     \setlength\linenumbersep{15pt} % distanza dei numeri
+%\usepackage{minted} % per codice (https://it.overleaf.com/learn/latex/Code_Highlighting_with_minted
+%\usepackage{minted} % per codice (https://it.overleaf.com/learn/latex/Code_Highlighting_with_minted)
+\usepackage{multicol} % per avere parti del testo a più colonne
+    % \setlength{\columnseprule}{0.5pt} % Separator ruler width
+    % \def\columnseprulecolor{\color{gray}} % Separator ruler colour
+\usepackage{multirow} % per avere più righe o colonne unite nelle tabelle
+% \usepackage[skip=0pt plus2pt, indent = 30pt]{parskip} % spaziatura tra paragrafi
+%     %\setlength{\parindent}{15pt}
+%     \singlespacing %\doublespacing e \onehalfspacing
+% \usepackage{newlfont}
+\usepackage{pdfpages} % ???
+\usepackage{sectsty} % cambia lo stile dei titoli dei paragrafi
+    \chapterfont{\sffamily\bfseries\Huge} % section
+    \sectionfont{\color{navyblue}\sffamily\bfseries} % section
+    \subsectionfont{\sffamily\bfseries} % subsection
+    \subsubsectionfont{\sffamily\bfseries} % subsubsection
+%\usepackage{setspace} % per l'interlinea
+\usepackage{siunitx} % per avere i font per unità internazionali (per esempio microsecondi usare in TEXT MODE "\unit{\micro\second}")
+\usepackage[t1]{sourcesanspro} % i font sans serif sembrano più professionali
+\usepackage{svg}
+\usepackage{url}
+%\usepackage[svgnames]{xcolor} %GIA' INCLUSO IN sectsty, DECOMMENTARE SE NON è PRESENTE QUEL PACCHETTO
+\usepackage{tikz}
+    \usetikzlibrary{fit}
+\usepackage[most]{tcolorbox} % per i testi con la cornice (più info su https://ctan.mirror.garr.it/mirrors/ctan/macros/latex/contrib/tcolorbox/tcolorbox.pdf)
+%    %\tcbuselibrary{skins}
+%     \newtcolorbox[]{mvpeqbox}[1]{ % [1] sta per "1 variab. di input
+%                     title = \textit{{#1}}, % {#1} è la variabile inserita obbligatoria
+%                     sharp corners, % round corners
+%                     %colframe = red!50!white, % colore cornice
+%                     %colback = red!50!white, % colore sfondo
+%                     boxrule = -0.5pt, % spessore cornice
+%                     %opacityframe = 0, % opacità cornice
+%                     %opacityback = 1, % opacità sfondo
+%                     colbacktitle = white!87!black, % colore sfondo del titolo
+%                     coltitle = blue, % colore font titolo
+%                     ams align, % per avere l'ambiente di align
+%     } % custom tcolorbox per i blocchi di normali equazioni
+%     \newtcolorbox[]{eqbox}[1]{ % [1] sta per "1 variab. di input
+%                     title = #1, % #1 è la variabile inserita
+%                     sharp corners, % round corners
+%                     colframe = white!95!black, % colore cornice
+%                     colback = white, % colore sfondo
+%                     boxrule = 00.75pt, % spessore cornice
+%                     %opacityframe = 0, % opacità cornice
+%                     %opacityback = 1, % opacità sfondo
+%                     colbacktitle = white!95!black, % colore sfondo del titolo
+%                     coltitle = black, % colore font titolo
+%                     ams align, % per avere l'ambiente di align
+%     } % custom tcolorbox per i blocchi di equazione IMPORTANTI
+%     \newtcolorbox[]{mvvpeqbox}[1]{
+%                     title = \textit{{#1}},
+%                     sharp corners, % round corners
+%                     boxrule = -0.5pt, % spessore cornice
+%                     colbacktitle = white!87!black, % colore sfondo del titolo
+%                     coltitle = blue, % colore font titolo
+%                     ams align,
+%     } % custom tcolorbox per i blocchi di normali equazioni
+    \tcbset{on line, % impostazioni di tcolorbox
+        boxsep = 2pt,
+        left = 0pt,
+        right = 0pt,
+        top = 0pt,
+        bottom = 0pt,
+        colframe = white,
+        colback = white!93!black
+        }
+\usepackage{circuitikz} % per realizzare circuiti con tikz (fa l'updload automatico del pacchetto tikz) 
+%   \usetikzlibrary{patterns,plotmarks} % per usare root con tikz
+
+\usepackage{fancyhdr} % per i headings e footers
+    \pagestyle{fancy}
+    \fancyfoot{}
+    %\rhead{\textsc{Leandro Ye}}
+    %\lhead{FORZA EMPOLI}
+    \fancyhead{}
+    \fancyhead[RE,LO]{\small\it\sffamily\nouppercase{\leftmark}}
+    \fancyhead[LE,RO]{\small\it\sffamily\nouppercase{\rightmark}}
+    \fancyfoot[LE,RO]{\thepage}
+
+    \fancypagestyle{bib}{
+      \fancyhf{}
+      \fancyfoot[LE, RO]{\thepage}
+      \fancyhead[LO, RE]{\small\it\sffamily\nouppercase{\rightmark}}
+    }
+
+\usepackage{caption} % per avere didascalie migliori
+    \captionsetup{width=0.9\textwidth} % settings di caption
+    \DeclareCaptionFormat{custom} % un altro setting di caption
+    {
+        \centering #1#2\textit{\small{\sffamily #3}}
+    }
+    \captionsetup{format=custom}
+\usepackage{soul} % per highlight (\hl{} per sottolineare)
+\usepackage{subcaption} % per più immagini in un unico ambiente figure alla volta
+
+%//////////////////////////////////////////////////////
+%/////////////(ri)definizioni varie////////////////////
+%//////////////////////////////////////////////////////
+
+\DeclareEmphSequence{\sffamily\itshape}
+
+% Per settare una dilatazione delle altezze delle righe
+\renewcommand{\arraystretch}{1.30}
+
+% Per Re ed Im molto più belli (secondo me)
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
+
+% Per scrivere velocemente le derivate parziali
+% comando: \pd{#1}{#2}
+\newcommand{\pd}[2]{\dfrac{\partial #1}{\partial #2}}
+
+% Per scrivere velocemente tra i capolari ("< >")
+% comando: \lrangle{#1}
+\newcommand{\lrangle}[1]{\langle #1 \rangle}
+
+% Per scrivere i vari ±1/2 etc (SOLO NELLE EQUAZIONI)
+% \newcommand{\pmoh}{{\pm\frac{1}{2}}} % ±1/2
+% \newcommand{\mpoh}{{\mp\frac{1}{2}}} % ∓1/2
+% \newcommand{\poh}{{+\frac{1}{2}}} % +1/2
+% \newcommand{\moh}{{-\frac{1}{2}}} % -1/2
+
+% \definecolor{bg}{rgb}{0.95,0.95,0.95}
+% \definecolor{green}{rgb}{0,.66,0}
+% \definecolor{white}{rgb}{1, 1, 1}
+\definecolor{navyblue}{rgb}{.07,.098,.505} % blu navy
+
+% colore equazioni e inline math
+%\everymath\expandafter{\the\everymath \color{navyblue}}
+%\everydisplay\expandafter{\the\everydisplay \color{navyblue}}
+
+\newcommand{\ttbox}[1]{\tcbox{\texttt{#1}}}
+% \newcommand{\OR}{\tcbox{\texttt{OR}}}
+% \newcommand{\AND}{\tcbox{\texttt{AND}}}
+% \newcommand{\XOR}{\tcbox{\texttt{XOR}}}
+% \newcommand{\NOT}{\tcbox{\texttt{NOT}}}
+% \newcommand{\one}{\tcbox{\texttt{1}}}
+% \newcommand{\zero}{\tcbox{\texttt{0}}}
+% \newcommand{\MUX}{\tcbox{\texttt{MUX}}}
+% \newcommand{\NOTRED}{\tcbox{\color{red}\texttt{NOT}}}
+% \newcommand{\ORRED}{\tcbox{\color{red}\texttt{OR}}}
+% \newcommand{\ANDoneRED}{\tcbox{\color{red}\texttt{AND 1}}}
+% \newcommand{\ANDtwoRED}{\tcbox{\color{red}\texttt{AND 2}}}
+
+\newcommand{\pythia}{\ttbox{PYTHIA}}
+\newcommand{\pythiaa}{\ttbox{PYTHIA 8.3}}
+
+\newcommand{\captionwithsource}[2]{
+    \caption{{#1} (Fonte: {#2})}
+}
+
+\newcommand{\citeneeded}{\hl{cit. needed!}}

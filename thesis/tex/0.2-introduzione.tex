@@ -1,0 +1,34 @@
+\chapter*{Introduzione}
+\markboth{Introduzione}{Introduzione}
+\addcontentsline{toc}{chapter}{Introduzione}
+Recenti misurazioni sperimentali hanno dimostrato come i meccanismi di produzione di (anti)nuclei leggeri non siano stati ancora completamente compresi.
+In questo contesto i deuteroni, ossia i nuclei degli atomi di deuterio ($^2_1$H$_1$), essendo i nuclei più leggeri e quindi più abbondantemente prodotti, rivestono un’importanza fondamentale.
+Tra gli esperimenti in funzione a LHC, ALICE è quello maggiormente adatto a tali misurazioni grazie alla sua eccellente capacità di identificazione delle particelle cariche su un ampio intervallo di impulsi.
+Lo scopo principale dell'esperimento ALICE riguarda lo studio della materia nucleare in condizioni estreme di temperatura e densità di energia, e delle proprietà dello stato della materia chiamato \emph{plasma di quark e gluoni} (Quark-Gluon Plasma, QGP) caratterizzato da quark e gluoni deconfinati.
+Si ritiene che negli istanti iniziali successivi al Big Bang la materia di cui era composto l’universo primordiale si sia trovata in questa fase particolare, per cui attraverso lo studio delle sue proprietà è possibile ricavare informazioni essenziali sulla formazione e sull'evoluzione dell'universo.
+Lo studio dei processi di nucleosintesi effettuati in ALICE ha quindi un ruolo importante nella ricerca sulle origini dell'universo.
+
+Un altro motivo per lo studio della produzione dei deuteroni è la ricerca della materia oscura: gli antinuclei potrebbero infatti provenire da decadimenti di ipotetiche particelle di materia oscura, ossia delle \emph{Weakly Interactive Massive Particle} (WIMP).
+Di conseguenza è possibile usare la produzione di antinuclei come verifica dei modelli di WIMP, perché l'antimateria è una presenza rara nell'universo odierno in confronto con la materia ordinaria. 
+Di conseguenza indagare sulla formazione di nuclei leggeri è imperativo in questo contesto.
+
+Lo studio della produzione di deuteroni offre un importante banco di prova per la verifica dei modelli teorici proposti; ad oggi i modelli che rappresentano lo stato dell'arte per la produzione deuteronica sono: 
+\begin{itemize}
+    \item \emph{modello di coalescenza}, nel quale si assume in sostanza la formazione del deuterone nel momento in cui un protone e un neutrone sono sufficientemente vicini nello spazio delle fasi.
+    Notare come questo modello consideri solo un canale di produzione del deuterone, ossia $p+n\to D$, e il suo corrispettivo canale dell'antideuterone rispettivamente.
+    Di seguito indicheremo con $D$ e $\bar D$ i deuteroni e gli antideuteroni.
+    
+    \item \emph{modello di adronizzazione statistica} (o modello termico-statistico), il quale si basa sulla produzione di nuclei leggeri a partire da una sorgente in equilibrio termico, attraverso un approccio più statistico anziché dinamico come nel modello di coalescenza.
+    In questo caso, il rateo di produzione dei vari nuclei dipende sostanzialmente dalla loro massa, dal raggio e dalla temperatura del sistema. 
+\end{itemize}
+Mettendo in confronto questi due modelli con i dati di LHC non si osserva ancora, entro le incertezze sperimentali, che un modello sia preferibile rispetto all'altro.
+In particolare, il modello di coalescenza descrive meglio i dati a basse molteplicità, mentre il modello termico-statistico risulta più accurato ad alte molteplicità.
+
+% obiettivi e scopi della tesi
+In questa tesi invece viene ripreso un altro modello per la produzione deuteronica, ossia il \emph{modello di sezioni d'urto efficaci} (o modello di Dal-Raklev), implementato nel generatore Monte Carlo \ttbox{PYTHIA 8.3}.
+Questo modello, descritto in \cite{Dal_2015}, punta a riprodurre i dati sperimentali con un approccio più probabilistico, in termini di sezioni d'urto efficaci appunto, considerando più possibili canali di produzione, a differenza del modello di coalescenza che ne considera solo uno.
+Successivamente, comparando i risultati di questo modello con i dati sperimentali, si esegue un'ottimizzazione dei parametri, e viene fatto un confronto con il modello di coalescenza, cercando di mostrare quale predizione sia migliore nella riproduzione dei dati sperimentali di ALICE.
+Infine, si è studiato quali siano i canali che contribuiscono maggiormente alla produzione deuteronica nel modello.
+
+% struttura della tesi
+La tesi è strutturata in 3 capitoli: nel \autoref{ch:alice} verrà introdotto l'esperimento ALICE; nel \autoref{ch:modelli} verranno esposti i due principali modelli teorici per la produzione deuteronica e verrà spiegato il funzionamento di \ttbox{PYTHIA 8.3} e del modello di sezioni d'urto efficaci; infine, nel \autoref{ch:risultati} verranno mostrati i metodi utilizzati per le simulazioni di questa tesi, i risultati ottenuti e le ottimizzazioni dei parametri utilizzati. 

@@ -1,0 +1,20 @@
+\chapter*{Conclusioni}
+\markboth{Conclusioni}{Conclusioni}
+\addcontentsline{toc}{chapter}{Conclusione}
+In questo lavoro di tesi si è descritto lo stato dell'arte degli studi sul Quark Gluon Plasma (QGP), dando una visione sperimentale con una panoramica dell'esperimento ALICE, dei suoi rilevatori e dei suoi principali obiettivi nel campo della fisica.
+Grazie alle eccellenti capacità di tracciamento e di identificazione di particelle, ALICE ha permesso di studiare nel dettaglio le proprietà e l'evoluzione dello stato di QGP ricreato nelle collisioni di ioni pesanti ultrarelativistici a LHC, permettendo di verificare i diversi modelli teorici sviluppati nel corso degli ultimi anni.
+Attenzione particolare è stata data alla descrizione delle tecniche di misura di nuclei e antinuclei leggeri che sono prodotti all'LHC in uguale quantità.
+
+Successivamente sono stati introdotti e descritti i due modelli attualmente più utilizzati per descrivere la produzione di (anti)nuclei leggeri: il modello di coalescenza di (anti)nucleoni nello stadio finale della collisione e il modello di adronizzazione statistica.
+Per entrambi i modelli sono stati evidenziati i punti di forza e i limiti tramite un confronto con i dati raccolti da ALICE.
+Successivamente si è introdotto il generatore Monte Carlo \pythiaa{}, software ampiamente utilizzato per la simulazione di eventi della fisica di particelle.
+Di \pythiaa{} si è evidenziato il suo modello teorico di produzione deuteronica, ossia il modello di sezioni d'urto efficaci.
+
+Il lavoro principale di questa tesi è stato quello di utilizzare il software \pythiaa{} per simulare eventi di collisione pp a $\sqrt{s} = 13$ TeV, confrontando le simulazioni con i dati sperimentali misurati da ALICE e analizzando nel dettaglio i canali di produzione dei deuteroni, determinandone i principali contributi.
+Inoltre si è andati a confrontare il modello di sezioni d'urto efficaci con il modello di coalescenza, sempre implementato in \pythiaa{}, mostrando quali siano le differenze tra i due modelli.
+Infine, è stato effettuato uno studio di ottimizzazione del parametro \ttbox{DeuteronProduction:norm} del modello di sezioni d'urto efficaci.
+Il parametro ottimizzato assume il valore di circa 140.46, corrispondente a un valore di $1/\sigma_0$ di circa 2.24 \si{barn^{-1}}.
+Sebbene le simulazioni condotte con \pythiaa{} e i parametri ottimizzati in questa tesi non siano ancora in grado di riprodurre completamente gli spettri di (anti)deuterone misurati da ALICE, i risultati mostrano un accordo sensibilmente migliore rispetto alle configurazioni di default di \pythiaa{}:
+infatti nel modello predefinito vi è una sovrapproduzione sia dei deuteroni sia dei antideuteroni (rispettivamente circa del 20\% e del 13\%), mentre utilizzando il modello ottimizzato si ha una sovrapproduzione di deuteroni del circa 3.6\% e una sottoproduzione di antideuteroni del circa 6\%.
+
+In conclusione il lavoro presentato in questa tesi ha cercato di fornire una motivazione per lo studio della produzione di (anti)deuteroni, ha descritto quali sono i modelli teorici più utilizzati per descrivere i meccanismi di nucleosintesi, ha sfruttato il software \pythiaa{} per le simulazioni Monte Carlo e infine ha permesso di trovare una configurazione di \pythiaa{} in grado riprodurre in maniera più fedele i dati sperimentali raccolti da ALICE.

@@ -1,0 +1,37 @@
+\documentclass[12pt,twoside,openright]{report}
+
+% pacchetti
+\usepackage{leo_preamble}
+
+\begin{document}
+
+% frontespizio
+\input{frontespizio/Frontespizio.tex}
+\newpage \ \thispagestyle{empty} \newpage
+\thispagestyle{empty}
+
+\begin{abstract}
+\input{tex/0.1-abstract.tex}
+\end{abstract}
+
+\newpage \ \thispagestyle{empty} \newpage
+
+\setcounter{page}{5}
+\tableofcontents
+
+\input{tex/0.2-introduzione}
+
+\input{tex/1-alice/1-alice}
+
+\input{tex/2-modelli/2-modelli}
+
+\input{tex/3-risultati/3-risultati.tex}
+
+\input{tex/4-conclusione.tex}
+
+% bibliografia
+\pagestyle{bib}
+\printbibliography[nottype=online]
+\addcontentsline{toc}{chapter}{Bibliografia}
+
+\end{document}

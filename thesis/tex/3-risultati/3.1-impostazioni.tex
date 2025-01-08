@@ -1,0 +1,19 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{La generazione degli eventi}\label{ch:settings}
+Per la produzione delle simulazioni sono stati generati 98 milioni di eventi.
+% NJ qui si può considerare la notazione scientifica e dire 10e8, sono sempre 98 milioni? 
+Per ogni evento si sono impostate le seguenti opzioni:
+\begin{itemize}
+    \item ogni evento è una collisione $pp$ con l'energia del centro di massa $\sqrt{s} = 13$ TeV;
+    \item si è attivata la simulazione della posizione di vertici per i partoni \\ (\ttbox{PartonVertex:setVertex = on});
+    \item si è attivata la generazione di vertici nella frammentazione, ossia la formazione di particelle a partire da partoni (\ttbox{Fragmentation:setVertices = on});
+    \item si è applicato un particolare \textit{tuning} (ottimizzazione) dei parametri per la simulazione delle collisioni $pp$ (\ttbox{Tune:pp = 4}, con "4" che si riferisce a un set specifico di parametri ottimizzati per certe condizioni sperimentali);
+    \item si sono disattivati i sottoprocessi che coinvolgono interazioni QCD con trasferimento di momento elevato (\ttbox{HardQCD:all = off});
+    \item si sono disattivati anche i sottoprocessi che coinvolgono interazioni QCD con trasferimento di momento più piccolo (\ttbox{LowEnergyQCD:all = off});
+    \item si sono abilitate le interazioni QCD soft inelastiche che sono sottoprocessi di bassa energia (\ttbox{SoftQCD:inelastic = on});
+    \item si è attivata la produzione di deuteroni (\ttbox{HadronLevel:DeuteronProduction = on}).
+\end{itemize}
+In ogni evento vengono prodotte un certo numero di particelle, che possono includere protoni, neutroni, fotoni, deuteroni e altro, con le rispettive antiparticelle, e sono stati ottenuti gli spettri di produzione di (anti)protoni e (anti)deuteroni in funzione dell'impulso trasverso $p_t$, scartando le particelle con alta pseudo-rapidità (quindi se una particella possiede pseudo-rapidità $\eta > 0.5$, essa viene scartata).
+% NJ Qui il taglio era su eta o y? Dovrebbe esser y 
+Inoltre si è andato a osservare gli spettri dei deuteroni in funzione della quantità di moto trasversa nei vari canali di produzione.
+Contestualmente all'esecuzione di \pythiaa{}, il riempimento degli istogrammi è stato effettuato tramite l'utilizzo del programma \ttbox{ROOT} sviluppato al CERN \cite{fons_rademakers_2020_3895855}.
