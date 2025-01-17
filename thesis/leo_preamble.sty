@@ -13,11 +13,11 @@
 %\usepackage{bm} % per avere simboli matematici in grassetto
 \usepackage[backend=biber, style=alphabetic, defernumbers, sorting=none]{biblatex}
     % aggiunge la bibliografia
-    \addbibresource{tex/bibliografia.bib}
+    \addbibresource{bibliografia.bib} % path della libreria
 \usepackage{blindtext} % per generare "Lorem ipsum dolor..." con \blindtext
 %\usepackage{booktabs} % per le linee nelle tabelle migliori
 \usepackage{cancel} % per cancellare un testo \cancel{} per una barra verso alto a dx, mentre \xcancel{} per una croce
-\usepackage{csquotes}
+\usepackage{csquotes} % per biblatex (non mi ricordo cosa di preciso)
 %\usepackage{csvsimple-l3} % per convertire csv in tabelle
 \usepackage{emptypage} % per rendere le pagine vuote veramente vuote (= senza 
 \usepackage{enumitem} % per fare una lista numerizzata
@@ -46,7 +46,6 @@
 % \usepackage[modulo,switch,pagewise]{lineno} % per avere i numeri accanto alle righe
 %     \renewcommand\linenumberfont{\sffamily\tiny\color{white!75!black}} % stile numeri
 %     \setlength\linenumbersep{15pt} % distanza dei numeri
-%\usepackage{minted} % per codice (https://it.overleaf.com/learn/latex/Code_Highlighting_with_minted
 %\usepackage{minted} % per codice (https://it.overleaf.com/learn/latex/Code_Highlighting_with_minted)
 \usepackage{multicol} % per avere parti del testo a più colonne
     % \setlength{\columnseprule}{0.5pt} % Separator ruler width
@@ -56,7 +55,7 @@
 %     %\setlength{\parindent}{15pt}
 %     \singlespacing %\doublespacing e \onehalfspacing
 % \usepackage{newlfont}
-\usepackage{pdfpages} % ???
+\usepackage{pdfpages} % ??? (non so a cosa serve rip)
 \usepackage{sectsty} % cambia lo stile dei titoli dei paragrafi
     \chapterfont{\sffamily\bfseries\Huge} % section
     \sectionfont{\color{navyblue}\sffamily\bfseries} % section
@@ -132,21 +131,21 @@
       \fancyhead[LO, RE]{\small\it\sffamily\nouppercase{\rightmark}}
     }
 
-\usepackage{caption} % per avere didascalie migliori
+\usepackage{caption} % per avere didascalie customizzati
     \captionsetup{width=0.9\textwidth} % settings di caption
     \DeclareCaptionFormat{custom} % un altro setting di caption
     {
         \centering #1#2\textit{\small{\sffamily #3}}
     }
     \captionsetup{format=custom}
-\usepackage{soul} % per highlight (\hl{} per sottolineare)
+\usepackage{soul} % per highlight (\hl{} per evidenziare)
 \usepackage{subcaption} % per più immagini in un unico ambiente figure alla volta
 
 %//////////////////////////////////////////////////////
 %/////////////(ri)definizioni varie////////////////////
 %//////////////////////////////////////////////////////
 
-\DeclareEmphSequence{\sffamily\itshape}
+\DeclareEmphSequence{\sffamily\itshape} % impostazione del teso \emph{}
 
 % Per settare una dilatazione delle altezze delle righe
 \renewcommand{\arraystretch}{1.30}
@@ -178,7 +177,10 @@
 %\everymath\expandafter{\the\everymath \color{navyblue}}
 %\everydisplay\expandafter{\the\everydisplay \color{navyblue}}
 
+% per imitare quella cosa simile in whatsapp con `...`
 \newcommand{\ttbox}[1]{\tcbox{\texttt{#1}}}
+\newcommand{\pythia}{\ttbox{PYTHIA}}
+\newcommand{\pythiaa}{\ttbox{PYTHIA 8.3}}
 % \newcommand{\OR}{\tcbox{\texttt{OR}}}
 % \newcommand{\AND}{\tcbox{\texttt{AND}}}
 % \newcommand{\XOR}{\tcbox{\texttt{XOR}}}
@@ -191,11 +193,10 @@
 % \newcommand{\ANDoneRED}{\tcbox{\color{red}\texttt{AND 1}}}
 % \newcommand{\ANDtwoRED}{\tcbox{\color{red}\texttt{AND 2}}}
 
-\newcommand{\pythia}{\ttbox{PYTHIA}}
-\newcommand{\pythiaa}{\ttbox{PYTHIA 8.3}}
-
+% comando per semplificare la citazione dei fonti nelle caption
 \newcommand{\captionwithsource}[2]{
     \caption{{#1} (Fonte: {#2})}
 }
 
+% comando utile per le bozze
 \newcommand{\citeneeded}{\hl{cit. needed!}}
