@@ -58,10 +58,6 @@ int def_opt(const int analyse_id = -1, bool const do_print = 0) {
   std::string analyse_file;
   TString analyse_case;
   switch (analyse_id) {
-  case 0:
-    analyse_file = "simu_data/main142_A_1e8.root";
-    analyse_case = "A";
-    break;
   case 1:
     analyse_file = "simu_data/main142_B_1e8.root";
     analyse_case = "B";
@@ -69,6 +65,10 @@ int def_opt(const int analyse_id = -1, bool const do_print = 0) {
   case 2:
     analyse_file = "simu_data/main142_D_1e8.root";
     analyse_case = "D";
+    break;
+  case 3:
+    analyse_file = "simu_data/main142_E_1e8.root";
+    analyse_case = "E";
     break;
   case 4:
     analyse_file = "simu_data/main142_F_1e8.root";
@@ -78,18 +78,19 @@ int def_opt(const int analyse_id = -1, bool const do_print = 0) {
     analyse_file = "simu_data/main142_G_1e8.root";
     analyse_case = "G";
     break;
-  case 3:
-    analyse_file = "simu_data/main142_E_1e8.root";
+  case 0:
+    analyse_file = "simu_data/main142_A_1e8.root";
+    analyse_case = "A";
   default:
-    std::cout << "LEO_ERROR: Invalid analyse_id, allowed are: 0(A), 1(B), "
-                 "2(D), 4(F), 5(G)"
+    std::cout << "LEO_ERROR: Invalid analyse_id, allowed are:  1(B), "
+                 "2(D), 3(E), 4(F), 5(G)"
               << '\n';
     return 0;
   }
 
   // prendi i file
   // TFile *simu_D_file = new TFile(analyse_file.c_str(), "READ");
-  TFile *simu_D_file = new TFile("simu_data/main142_G_1e8.root", "READ");
+  TFile *simu_D_file = new TFile(analyse_file.c_str(), "READ");
   TFile *simu_A_file = new TFile("simu_data/main142_A_1e8.root", "READ");
   TFile *cern_deuteron_file = new TFile("cern_data/deuteron_pt.root", "READ");
   TFile *cern_antideuteron_file =
@@ -196,18 +197,18 @@ int def_opt(const int analyse_id = -1, bool const do_print = 0) {
   /////////////////////DEF OPT PYTHIA/ALICE RATIO/////////////////////////////
 
   // TGraph dati deuteroni
-/*   TGraphAsymmErrors *g_pt_cern_deuteron =
-      (TGraphAsymmErrors *)cern_deuteron_file->Get(
-          "Deuterons spectrum in INEL pp collisions/Graph1D_y1");
-  g_pt_cern_deuteron->SetMarkerStyle(20);
-  g_pt_cern_deuteron->SetLineColor(kBlack);
+  /*   TGraphAsymmErrors *g_pt_cern_deuteron =
+        (TGraphAsymmErrors *)cern_deuteron_file->Get(
+            "Deuterons spectrum in INEL pp collisions/Graph1D_y1");
+    g_pt_cern_deuteron->SetMarkerStyle(20);
+    g_pt_cern_deuteron->SetLineColor(kBlack);
 
-  // TGraph dati antideuteroni
-  TGraphAsymmErrors *g_pt_cern_antideuteron =
-      (TGraphAsymmErrors *)cern_antideuteron_file->Get(
-          "Antideuterons spectrum in INEL pp collisions/Graph1D_y1");
-  g_pt_cern_antideuteron->SetMarkerStyle(20);
-  g_pt_cern_antideuteron->SetLineColor(kBlack); */
+    // TGraph dati antideuteroni
+    TGraphAsymmErrors *g_pt_cern_antideuteron =
+        (TGraphAsymmErrors *)cern_antideuteron_file->Get(
+            "Antideuterons spectrum in INEL pp collisions/Graph1D_y1");
+    g_pt_cern_antideuteron->SetMarkerStyle(20);
+    g_pt_cern_antideuteron->SetLineColor(kBlack); */
 
   Double_t bin_edges_cern[] = {0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.4, 1.6,
                                1.8, 2.0, 2.2, 2.6, 3.0, 3.4, 3.8};
@@ -273,8 +274,8 @@ int def_opt(const int analyse_id = -1, bool const do_print = 0) {
   h_pt_D_rebin_antideuteron->Divide(h_pt_cern_antideuteron);
 
   // canvas deuteroni
-  TCanvas *deuteron_division_canvas =
-      new TCanvas("deuterone_division_pt", "ratio #it{p}_{t} distribution", 720, 720);
+  TCanvas *deuteron_division_canvas = new TCanvas(
+      "deuterone_division_pt", "ratio #it{p}_{t} distribution", 720, 720);
   deuteron_division_canvas->cd();
   deuteron_division_canvas->SetLogx();  // log x
   deuteron_division_canvas->SetGridx(); // griglia x
@@ -285,14 +286,16 @@ int def_opt(const int analyse_id = -1, bool const do_print = 0) {
 
   // aggiungi la legenda
   TLegend *deuteron_division_leg = new TLegend(.14, .1, .6, .235);
-  deuteron_division_leg->AddEntry(h_pt_A_rebin_deuteron, "PYTHIA/ALICE D default", "pe");
-  deuteron_division_leg->AddEntry(h_pt_D_rebin_deuteron, "PYTHIA/ALICE D optimized", "pe");
+  deuteron_division_leg->AddEntry(h_pt_A_rebin_deuteron,
+                                  "PYTHIA/ALICE D default", "pe");
+  deuteron_division_leg->AddEntry(h_pt_D_rebin_deuteron,
+                                  "PYTHIA/ALICE D optimized", "pe");
   deuteron_division_leg->SetTextSize(0.03);
   deuteron_division_leg->Draw("Same");
 
   // canvas antideuteroni
-  TCanvas *antideuteron_division_canvas =
-      new TCanvas("deuteron_division_pt", "ratio #it{p}_{t} distribution", 720, 720);
+  TCanvas *antideuteron_division_canvas = new TCanvas(
+      "deuteron_division_pt", "ratio #it{p}_{t} distribution", 720, 720);
   antideuteron_division_canvas->cd();
   antideuteron_division_canvas->SetLogx();  // log x
   antideuteron_division_canvas->SetGridx(); // griglia x
@@ -303,8 +306,10 @@ int def_opt(const int analyse_id = -1, bool const do_print = 0) {
 
   // aggiungi la legenda
   TLegend *antideuteron_division_leg = new TLegend(.14, .1, .6, .235);
-  antideuteron_division_leg->AddEntry(h_pt_A_rebin_antideuteron, "PYTHIA/ALICE #bar{D} default", "pe");
-  antideuteron_division_leg->AddEntry(h_pt_D_rebin_antideuteron, "PYTHIA/ALICE #bar{D} optimized", "pe");
+  antideuteron_division_leg->AddEntry(h_pt_A_rebin_antideuteron,
+                                      "PYTHIA/ALICE #bar{D} default", "pe");
+  antideuteron_division_leg->AddEntry(h_pt_D_rebin_antideuteron,
+                                      "PYTHIA/ALICE #bar{D} optimized", "pe");
   antideuteron_division_leg->SetTextSize(0.03);
   antideuteron_division_leg->Draw("Same");
 
@@ -321,7 +326,8 @@ int def_opt(const int analyse_id = -1, bool const do_print = 0) {
     // def_opt_deuteron_canvas->Print("analyse/G/def_opt_deuteron.pdf");
     // def_opt_antideuteron_canvas->Print("analyse/G/def_opt_antideuteron.pdf");
     deuteron_division_canvas->Print("analyse/G/def_opt_deuteron_div.pdf");
-    antideuteron_division_canvas->Print("analyse/G/def_opt_antideuteron_div.pdf");
+    antideuteron_division_canvas->Print(
+        "analyse/G/def_opt_antideuteron_div.pdf");
   }
 
   return 0;

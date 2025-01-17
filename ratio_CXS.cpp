@@ -67,11 +67,15 @@ int ratio_CXS(const int analyse_id = -1, bool const do_print = 0) {
     analyse_file = "simu_data/main142_F_1e8.root";
     analyse_case = "F";
     break;
+  case 5:
+    analyse_file = "simu_data/main142_G_1e8.root";
+    analyse_case = "G";
+    break;
   case 3:
     analyse_file = "simu_data/main142_E_1e8.root";
   default:
     std::cout << "LEO_ERROR: Invalid analyse_id, allowed are: 0(A), 1(B), "
-                 "2(D), 4(F)"
+                 "2(D), 4(F), 5(G)"
               << '\n';
     return 0;
   }
@@ -138,11 +142,11 @@ int ratio_CXS(const int analyse_id = -1, bool const do_print = 0) {
   h_ratio_deuteron_CXS->Draw("E1, P, SAME");
   h_ratio_antideuteron_CXS->Draw("E1, P, SAME");
 
-  std::cout << "Ratio COAL/XS dueteron ";
+  std::cout << "Ratio COAL/XS deuteron ";
   weightedMeanY(h_ratio_deuteron_CXS);
   std::cout << '\n';
 
-  std::cout << "Ratio COAL/XS antidueteron ";
+  std::cout << "Ratio COAL/XS antideuteron ";
   weightedMeanY(h_ratio_antideuteron_CXS);
   std::cout << '\n';
 
